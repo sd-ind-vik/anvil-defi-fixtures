@@ -1,0 +1,32 @@
+services:
+  anvil-ethereum:
+    build: .
+    image: anvil-defi-fixtures:latest
+    environment:
+      CHAIN_NAME: ethereum
+    ports:
+      - "18545:8545"
+
+  anvil-base:
+    build: .
+    image: anvil-defi-fixtures:latest
+    environment:
+      CHAIN_NAME: base
+    ports:
+      - "18546:8545"
+
+  anvil-arbitrum:
+    build: .
+    image: anvil-defi-fixtures:latest
+    environment:
+      CHAIN_NAME: arbitrum
+    ports:
+      - "18547:8545"
+
+  anvil-optimism:
+    build: .
+    image: anvil-defi-fixtures:latest
+    environment:
+      CHAIN_NAME: optimism
+    ports:
+      - "18548:8545"
