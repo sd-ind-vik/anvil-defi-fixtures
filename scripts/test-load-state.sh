@@ -319,7 +319,7 @@ for entry in "${CHAINS[@]}"; do
 
     atoken_pool="$(cast_call "$rpc" "$first_atoken" 'POOL()(address)')"
     atoken_pool="${atoken_pool// /}"
-    if [[ "${atoken_pool,,}" == "${pool,,}" ]]; then
+    if [[ "$(tr '[:upper:]' '[:lower:]' <<<"$atoken_pool")" == "$(tr '[:upper:]' '[:lower:]' <<<"$pool")" ]]; then
       ok "$name: aToken.POOL() matches Aave pool address"
     else
       fail "$name: aToken.POOL() = '${atoken_pool}' (expected ${pool})"
