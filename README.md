@@ -1,47 +1,127 @@
 # Anvil DeFi Fixtures
 
-Portable offline Anvil fixtures for deterministic DeFi development and tests.
+Portable offline Anvil nodes for deterministic multi-chain DeFi testing.
+Four chains ship as pre-built Docker images — no live RPC required at runtime.
 
-This image starts a local Anvil node from cached fork state, backed by a small
-fail-closed JSON-RPC shim. It is intended for repeatable local testing without
-depending on public RPC endpoints at runtime.
+Each fixture includes:
+- **State snapshot** — forked at a block with real Aave V3 + Uniswap V3 activity
+- **Foundry cache** — warmed contract code, storage slots, and block headers
+- **Event log file** — 50-block window of Aave and Uniswap events, served via `eth_getLogs`
 
-## Included Chains
+## Chains
 
-- Ethereum mainnet, `CHAIN_NAME=ethereum`, chain id `1`
-- Base, `CHAIN_NAME=base`, chain id `8453`
-- Arbitrum One, `CHAIN_NAME=arbitrum`, chain id `42161`
-- Optimism, `CHAIN_NAME=optimism`, chain id `10`
+| Chain | `CHAIN_NAME` | Chain ID | Fork Block | Logs |
+|-------|-------------|----------|------------|------|
+| Ethereum mainnet | `ethereum` | 1 | 25290309 | 163 |
+| Base | `base` | 8453 | 47193640 | 52 |
+| Arbitrum One | `arbitrum` | 42161 | 472376266 | 27 |
+| Optimism | `optimism` | 10 | 152791326 | 20 |
 
-## Run
+Fork blocks are chosen with `ANVIL_CAPTURE_FIND_ACTIVE_BLOCK` — the most recent
+block in the last 500 that has a `ReserveDataUpdated` event, guaranteeing real
+protocol activity rather than a quiet chain tip.
 
-Build and start Ethereum:
+## Quick Start
 
 ```bash
+# All 4 chains
+docker compose up -d
+
+# Single chain
 docker compose up -d anvil-ethereum
 ```
 
-Check the node:
+RPC endpoints (host):
+
+| Chain | URL |
+|-------|-----|
+| Ethereum | `http://127.0.0.1:18545` |
+| Base | `http://127.0.0.1:18546` |
+| Arbitrum | `http://127.0.0.1:18547` |
+| Optimism | `http://127.0.0.1:18548` |
+
+Override ports with env vars: `ANVIL_ETHEREUM_PORT`, `ANVIL_BASE_PORT`, `ANVIL_ARBITRUM_PORT`, `ANVIL_OPTIMISM_PORT`.
+
+Verify:
 
 ```bash
-cast chain-id --rpc-url http://127.0.0.1:18545
+cast chain-id    --rpc-url http://127.0.0.1:18545
 cast block-number --rpc-url http://127.0.0.1:18545
 ```
 
-Start all chains:
+## What Works Offline
 
+**Aave V3**
 ```bash
-docker compose up -d
+# Reserve rates
+cast call --rpc-url http://127.0.0.1:18545 \
+  0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2 \
+  'getReserveData(address)((uint256),uint128,uint128,uint128,uint128,uint128,uint40,uint16,address,address,address,address,uint128,uint128,uint128)' \
+  0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+
+# Oracle price
+cast call --rpc-url http://127.0.0.1:18545 \
+  0x54586bE62E3c3580375aE3723C145253060Ca0C2 \
+  'getAssetPrice(address)(uint256)' \
+  0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48
+
+# Position health factor
+cast call --rpc-url http://127.0.0.1:18545 \
+  0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2 \
+  'getUserAccountData(address)(uint256,uint256,uint256,uint256,uint256,uint256)' \
+  0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
 ```
 
-RPC ports:
+**Uniswap V3**
+```bash
+# Pool price + liquidity
+cast call --rpc-url http://127.0.0.1:18545 \
+  0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640 \
+  'slot0()(uint160,int24,uint16,uint16,uint16,uint8,bool)'
+```
 
-- Ethereum: `http://127.0.0.1:18545`
-- Base: `http://127.0.0.1:18546`
-- Arbitrum: `http://127.0.0.1:18547`
-- Optimism: `http://127.0.0.1:18548`
+**Event logs** (`eth_getLogs` served from the captured log file)
+```bash
+# Aave ReserveDataUpdated — last 50 blocks
+cast rpc --rpc-url http://127.0.0.1:18545 eth_getLogs \
+  '{"address":"0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2","topics":["0x804c9b842b2748a22bb64b345453a3de7ca54a6ca45ce00d415894979e22897a"],"fromBlock":"0x181e5e1","toBlock":"0x181e645"}'
 
-## Docker Run
+# Uniswap Swap events
+cast rpc --rpc-url http://127.0.0.1:18545 eth_getLogs \
+  '{"address":"0x88e6A0c2dDD26FEEb64F039a2c41296FcB3f5640","topics":["0xc42079f94a6350d7e6235f29174924f928cc2ac818eb64fed8004e115fbcca67"],"fromBlock":"0x181e5e1","toBlock":"0x181e645"}'
+```
+
+**Gas tracking**, **ERC-20 metadata**, **block headers** — all cached and served offline.
+
+## Standalone Ingestor
+
+`scripts/ingest-offline.sh` polls all 4 chains and prints blocks, prices,
+reserve APRs, and position health factors to the console — no chain-sentry binary needed.
+
+```bash
+# Start anvils first, then:
+bash scripts/ingest-offline.sh --no-docker --mine-interval 5
+```
+
+Output:
+```
+[ethereum] BLOCK  #25290310  ts=2026-06-10 23:29:02 UTC  baseFee=0.048 gwei
+[ethereum] PRICE  USDC = $1.00
+[ethereum] PRICE  WETH = $1,620.19
+[ethereum] RESRV  USDC  supplyAPR=8.8287%  varBorrowAPR=10.1236%
+[ethereum] POSIT  0xf39fd6e5..  collateral=$0.00  debt=$0.00  HF=∞ (no debt)
+```
+
+## Smoke Test
+
+```bash
+bash scripts/test-offline-logs.sh --no-docker
+```
+
+Verifies `eth_getLogs` for Aave `ReserveDataUpdated` and Uniswap `Swap` events
+across all 4 chains. All 16 checks should pass.
+
+## Docker Run (without Compose)
 
 ```bash
 docker build -t anvil-defi-fixtures:latest .
@@ -51,42 +131,60 @@ docker run --rm -p 18545:8545 \
   anvil-defi-fixtures:latest
 ```
 
-## Send Transactions
+## Mine Blocks / Send Transactions
 
-The node is a normal Anvil instance after startup, so you can send local
-transactions and mine blocks:
+The node is a normal Anvil instance after startup:
 
 ```bash
-cast rpc --rpc-url http://127.0.0.1:18545 eth_accounts
-cast rpc --rpc-url http://127.0.0.1:18545 anvil_mine 1
+# Mine a block
+cast rpc --rpc-url http://127.0.0.1:18545 evm_mine
+
+# Default Anvil account (has ETH)
+# Address: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+# Key:     0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
 ```
 
-Default Anvil private key:
+## Recapturing Fixtures
 
-```text
-0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+Recapture when you need a fresher fork block or wider protocol coverage.
+Requires live RPC access (public endpoints work):
+
+```bash
+# All chains — active-block selection (finds most recent block with Aave activity)
+ANVIL_CAPTURE_FIND_ACTIVE_BLOCK=true bash scripts/capture-anvil-state.sh
+
+# Single chain
+ANVIL_CAPTURE_CHAINS=42161 \
+ANVIL_CAPTURE_FIND_ACTIVE_BLOCK=true \
+bash scripts/capture-anvil-state.sh
+
+# Custom log scan depth (default: 50 blocks)
+ANVIL_CAPTURE_LOG_SCAN_DEPTH=100 \
+ANVIL_CAPTURE_FIND_ACTIVE_BLOCK=true \
+bash scripts/capture-anvil-state.sh
 ```
 
-Default account:
+After recapture, rebuild the image:
 
-```text
-0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+```bash
+docker compose build
+docker compose up -d --force-recreate
 ```
 
 ## Offline Scope
 
-The fixtures include practical warmed DeFi reads for Aave, Uniswap, selected
-tokens, and sequencer feeds. They are not complete archive-node snapshots.
+The fixtures cache practical DeFi reads — Aave V3 reserves, oracles, user positions,
+Uniswap V3 pool state and TWAP observations, ERC-20 metadata, sequencer feeds, and
+50 blocks of event logs. They are not complete archive-node snapshots.
 
-If execution touches an uncached contract or storage slot, the shim fails closed
-with an offline cache miss. Extend the fixture warmer and recapture if you need
-additional protocol coverage.
+If execution touches an uncached storage slot, the shim returns a `-32000` error
+(`offline cache miss`). Extend `capture-anvil-state.sh` and recapture to add coverage.
 
-## Publish To GHCR
+## Publish to GHCR
 
 ```bash
-docker build -t ghcr.io/<owner>/anvil-defi-fixtures:offline-defi-v1 .
-docker push ghcr.io/<owner>/anvil-defi-fixtures:offline-defi-v1
+docker build -t ghcr.io/<owner>/anvil-defi-fixtures:latest .
+docker push ghcr.io/<owner>/anvil-defi-fixtures:latest
 ```
 
-The included GitHub Actions workflow publishes on tags that start with `v`.
+The included GitHub Actions workflow publishes on tags starting with `v`.
