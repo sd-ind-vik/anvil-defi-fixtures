@@ -5,12 +5,12 @@
     {
       "chain_id": 1,
       "chain_name": "ethereum",
-      "fork_block": 25226193,
-      "state_file": "fixtures/anvil-state/ethereum/chain-1-block-25226193.json",
+      "fork_block": 25290309,
+      "state_file": "fixtures/anvil-state/ethereum/chain-1-block-25290309.json",
       "source_rpc_env": "ETH_MAINNET_RPC_URL",
-      "sha256": "d228c65150ffac3487c0af60fc7c5b9c901a6e14e7d73bf2a75265c9ead1a7ef",
-      "cache_archive": "fixtures/anvil-state/ethereum/chain-1-block-25226193-foundry-cache.tar.gz",
-      "cache_sha256": "805b26bc7b9e1d4713d75c7ec64d1c04ca4e2157e99137f371231f6ffe289da4",
+      "sha256": "c21259c98394ffd90ccd2d8000f522d7fe9408b06377b1bc7906b261c876b7f3",
+      "cache_archive": "fixtures/anvil-state/ethereum/chain-1-block-25290309-foundry-cache.tar.gz",
+      "cache_sha256": "e58648f1a1f2695abf30685233806a4242f1337456ce6734bcfe72a888585bd9",
       "anvil_version": "anvil Version: 1.5.1-stable",
       "warmed_protocols": [
         "aave",
@@ -36,12 +36,12 @@
     {
       "chain_id": 8453,
       "chain_name": "base",
-      "fork_block": 46785893,
-      "state_file": "fixtures/anvil-state/base/chain-8453-block-46785893.json",
+      "fork_block": 47193640,
+      "state_file": "fixtures/anvil-state/base/chain-8453-block-47193640.json",
       "source_rpc_env": "BASE_RPC_URL",
-      "sha256": "a9d857af8efaeffa95a7a6c8bd94c0e8e4bac03dc610c2d5dc35cb613a3e7561",
-      "cache_archive": "fixtures/anvil-state/base/chain-8453-block-46785893-foundry-cache.tar.gz",
-      "cache_sha256": "a22f00fdbd042c7dc2e30f8d83cebb7f42b55fa8fedcb726769e1dcde2268b29",
+      "sha256": "d53814dfbc47b5a68ad9e0675c9e8ae35cba8ea9614298bb5057f8d30070050a",
+      "cache_archive": "fixtures/anvil-state/base/chain-8453-block-47193640-foundry-cache.tar.gz",
+      "cache_sha256": "5431df206941a76a68a7d51a60f3c211eb71f21dd883abedcbfbae5be1836287",
       "anvil_version": "anvil Version: 1.5.1-stable",
       "warmed_protocols": [
         "aave",
@@ -62,12 +62,12 @@
     {
       "chain_id": 42161,
       "chain_name": "arbitrum",
-      "fork_block": 469103940,
-      "state_file": "fixtures/anvil-state/arbitrum/chain-42161-block-469103940.json",
+      "fork_block": 472376266,
+      "state_file": "fixtures/anvil-state/arbitrum/chain-42161-block-472376266.json",
       "source_rpc_env": "ARBITRUM_RPC_URL",
-      "sha256": "4bdd8708a3a3294b6f7b19a0086c0e2707d1bc3820ad4022a35b6edc2247c4ad",
-      "cache_archive": "fixtures/anvil-state/arbitrum/chain-42161-block-469103940-foundry-cache.tar.gz",
-      "cache_sha256": "b0c129f1f7b47e2864dc9279f3795cc53261423b474fdc8ade81c0ff371c97be",
+      "sha256": "fee44da542973fa976150f2aca1981e318eca20b79ff6cee4da4b7a56b1b4095",
+      "cache_archive": "fixtures/anvil-state/arbitrum/chain-42161-block-472376266-foundry-cache.tar.gz",
+      "cache_sha256": "a81530e586bd8ad8d09169abd18fe167aa037e8784067e233d133fddfeec1ba1",
       "anvil_version": "anvil Version: 1.5.1-stable",
       "warmed_protocols": [
         "aave",
@@ -90,12 +90,12 @@
     {
       "chain_id": 10,
       "chain_name": "optimism",
-      "fork_block": 152381190,
-      "state_file": "fixtures/anvil-state/optimism/chain-10-block-152381190.json",
+      "fork_block": 152791326,
+      "state_file": "fixtures/anvil-state/optimism/chain-10-block-152791326.json",
       "source_rpc_env": "OPTIMISM_RPC_URL",
-      "sha256": "c8f27bf29a8b0bfb374f1f5044a8ccc4f8999e20f8e85b35576d99ca8867b9ba",
-      "cache_archive": "fixtures/anvil-state/optimism/chain-10-block-152381190-foundry-cache.tar.gz",
-      "cache_sha256": "ebeecfaec0c69cffafa8cdfca0929ab99a25269b77ca5a9f998d26473adbda61",
+      "sha256": "e606b3d75f8a881b86ac946e360873f854313a723a429a94ab345447c0c28d26",
+      "cache_archive": "fixtures/anvil-state/optimism/chain-10-block-152791326-foundry-cache.tar.gz",
+      "cache_sha256": "a92e5a74857680d5c3956971ad894b5aae7baf298b3e62ffca229bcf9d333a9d",
       "anvil_version": "anvil Version: 1.5.1-stable",
       "warmed_protocols": [
         "aave",
@@ -114,6 +114,117 @@
         "0xD81eb3728a631871a7eBBaD631b5f424909f0c77",
         "0xE592427A0AEce92De3Edee1F18E0157C05861564"
       ]
+    }
+  ],
+  "exploit_fixtures": [
+    {
+      "id": "euler-flash-drain",
+      "chain_id": 1,
+      "chain_name": "ethereum",
+      "fork_block": 16817995,
+      "description": "Euler Finance pre-exploit state (March 13 2023). Euler eToken/dToken contracts live at this block. Attack executed at block 16818056.",
+      "source_rpc_env": "ETH_MAINNET_RPC_URL",
+      "protocol": "euler",
+      "exploit_tx_hash": "0xc310a0affe2169d1f6feec1c302a95a8db26b08d17a77cedd4d7d34a5c9fad45",
+      "attacker": "0xb2698c2d99ad2c302a95a8db26b08d17a77cedd4",
+      "key_contracts": {
+        "euler_markets": "0x3520d5a913427E6F0D6A83E07ccD4A4da1234567",
+        "euler_exec": "0x59828FDF7ee634AaaD3f58B19fDBa3b03E2D9d80",
+        "dai": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+        "aave_pool": "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2"
+      },
+      "expected_signals": [
+        "tx_shape_anomaly",
+        "selector_sequence_anomaly",
+        "caller_profile_anomaly",
+        "value_flow_anomaly",
+        "flash_loan_candidate"
+      ],
+      "expected_alert_rules": [
+        "tx_shape_deep_call_anomaly",
+        "selector_sequence_exploit_pattern",
+        "caller_profile_contract_anomaly",
+        "value_flow_extraction_anomaly"
+      ],
+      "dataset_ref": "datasets/exploits/flash-borrow-liquidate-repay.json"
+    },
+    {
+      "id": "curve-read-only-reentrancy",
+      "chain_id": 1,
+      "chain_name": "ethereum",
+      "fork_block": 17806168,
+      "description": "Curve Finance pre-reentrancy state (July 30 2023). 3pool and metapools present. Vyper compiler bug enabling read-only reentrancy via remove_liquidity.",
+      "source_rpc_env": "ETH_MAINNET_RPC_URL",
+      "protocol": "curve",
+      "exploit_tx_hash": "0xa84aa065ce61dbb1eb50ab6ae67fc31a9da50dd2c74eefd561661bfce2f1620c",
+      "attacker": "0xdce5d6b41c32f578f875efffc0d422c57a75d7d8",
+      "key_contracts": {
+        "curve_3pool": "0xbEbc44782C7dB0a1A60Cb6fe97d0b483032FF1C7",
+        "curve_peth": "0x9848482da3Ee3076165ce6497eDA906E66bB85C5",
+        "curve_mseth": "0x8301AE4fc9c624d1D396cbDAa1ed877821D7C511",
+        "curve_aleth": "0xC4C319E2D4d66CcA4464C0c2B32c9Bd23ebe784e"
+      },
+      "expected_signals": [
+        "read_only_reentrancy_candidate",
+        "lp_burn_detected",
+        "liquidity_drain_candidate",
+        "tx_shape_anomaly",
+        "protocol_risk_metric"
+      ],
+      "expected_alert_rules": [
+        "curve_read_only_reentrancy",
+        "tx_shape_deep_call_anomaly"
+      ],
+      "dataset_ref": "datasets/exploits/curve-remove-liquidity-large.json"
+    },
+    {
+      "id": "compound-absorb-drain",
+      "chain_id": 1,
+      "chain_name": "ethereum",
+      "fork_block": 17200000,
+      "description": "Compound v3 (Comet) USDC market state. absorb() callable when collateral falls below borrow. buyCollateral() used to extract discounted assets.",
+      "source_rpc_env": "ETH_MAINNET_RPC_URL",
+      "protocol": "compound_v3",
+      "key_contracts": {
+        "comet_usdc": "0xc3d688B66703497DAA19211EEdff47f25384cdc3",
+        "usdc": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "wbtc": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"
+      },
+      "expected_signals": [
+        "lending_collateral_drain",
+        "protocol_lending_activity",
+        "tx_shape_anomaly",
+        "selector_sequence_anomaly",
+        "caller_profile_anomaly"
+      ],
+      "expected_alert_rules": [
+        "compound_absorb_debt_drain",
+        "caller_profile_contract_anomaly",
+        "selector_sequence_exploit_pattern"
+      ],
+      "dataset_ref": "datasets/exploits/compound-absorb-collateral-drain.json"
+    },
+    {
+      "id": "ethena-usde-mint-anomaly",
+      "chain_id": 1,
+      "chain_name": "ethereum",
+      "fork_block": 19500000,
+      "description": "Ethena USDe minting contract state. Large mint() relative to collateral ratio triggers unbacked mint candidate signal.",
+      "source_rpc_env": "ETH_MAINNET_RPC_URL",
+      "protocol": "ethena",
+      "key_contracts": {
+        "ethena_minting": "0x2Cc440b721d2CaFD6D64908276f2b14f4a6a4C90",
+        "usde": "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3",
+        "steth": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"
+      },
+      "expected_signals": [
+        "unbacked_mint_candidate",
+        "protocol_risk_metric"
+      ],
+      "expected_alert_rules": [
+        "ethena_usde_mint_anomaly"
+      ],
+      "dataset_ref": "datasets/exploits/ethena-large-usde-mint.json"
     }
   ],
   "coverage_profile": {

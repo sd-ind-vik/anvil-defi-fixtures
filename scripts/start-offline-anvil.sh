@@ -11,6 +11,10 @@ CACHE_ROOT="${CACHE_ROOT:-/tmp/chainsentry-foundry-cache}"
 ANVIL_OFFLINE_MODE="${ANVIL_OFFLINE_MODE:-cache-fork}"
 ANVIL_FORK_TIMEOUT_MS="${ANVIL_FORK_TIMEOUT_MS:-5000}"
 ANVIL_FORK_RETRIES="${ANVIL_FORK_RETRIES:-2}"
+if [ -z "${SHIM_SCRIPT:-}" ]; then
+  SHIM_SCRIPT="$(dirname "$0")/offline-anvil-rpc-shim.py"
+  [ -f "$SHIM_SCRIPT" ] || SHIM_SCRIPT="/usr/local/bin/offline-anvil-rpc-shim.py"
+fi
 
 metadata_file="$(mktemp)"
 python3 - "$MANIFEST" "$CHAIN_SELECTOR" >"$metadata_file" <<'PY'
@@ -37,7 +41,7 @@ if match is None:
     raise SystemExit(f"unknown offline Anvil fixture {selector}; valid fixtures: {valid}")
 
 root = manifest_path.parent.parent.parent
-cache_archive = root / match["cache_archive"]
+cache_archive = str(root / match["cache_archive"]) if match.get("cache_archive") else ""
 state_file = root / match["state_file"]
 
 for key, value in {
@@ -51,8 +55,9 @@ for key, value in {
 PY
 . "$metadata_file"
 rm -f "$metadata_file"
+OFFLINE_LOGS_FILE="${OFFLINE_STATE_FILE%.json}-logs.json"
 
-if [ ! -f "$OFFLINE_CACHE_ARCHIVE" ]; then
+if [ "$ANVIL_OFFLINE_MODE" != "load-state" ] && [ ! -f "$OFFLINE_CACHE_ARCHIVE" ]; then
   printf 'offline cache archive not found: %s\n' "$OFFLINE_CACHE_ARCHIVE" >&2
   exit 1
 fi
@@ -77,6 +82,7 @@ if [ "$ANVIL_OFFLINE_MODE" = "load-state" ]; then
     --host "$RPC_HOST" \
     --port "$RPC_PORT" \
     --chain-id "$OFFLINE_CHAIN_ID" \
+    --preserve-historical-states \
     --load-state "$OFFLINE_STATE_FILE" &
   anvil_pid="$!"
 else
@@ -90,11 +96,21 @@ else
   fi
 
   printf 'starting offline RPC shim for %s chain_id=%s cache=%s\n' "$OFFLINE_CHAIN_NAME" "$OFFLINE_CHAIN_ID" "$CACHE_FILE"
-  python3 /usr/local/bin/offline-anvil-rpc-shim.py \
-    --cache-file "$CACHE_FILE" \
-    --chain-id "$OFFLINE_CHAIN_ID" \
-    --host "$SHIM_HOST" \
-    --port "$SHIM_PORT" &
+  if [ -f "$OFFLINE_LOGS_FILE" ]; then
+    printf 'loading logs file: %s\n' "$OFFLINE_LOGS_FILE"
+    python3 "$SHIM_SCRIPT" \
+      --cache-file "$CACHE_FILE" \
+      --chain-id "$OFFLINE_CHAIN_ID" \
+      --host "$SHIM_HOST" \
+      --port "$SHIM_PORT" \
+      --logs-file "$OFFLINE_LOGS_FILE" &
+  else
+    python3 "$SHIM_SCRIPT" \
+      --cache-file "$CACHE_FILE" \
+      --chain-id "$OFFLINE_CHAIN_ID" \
+      --host "$SHIM_HOST" \
+      --port "$SHIM_PORT" &
+  fi
   shim_pid="$!"
 
   shim_url="http://${SHIM_HOST}:${SHIM_PORT}"
@@ -133,6 +149,7 @@ PY
     --fork-url "$shim_url" \
     --fork-block-number "$OFFLINE_FORK_BLOCK" \
     --fork-chain-id "$OFFLINE_CHAIN_ID" \
+    --preserve-historical-states \
     --cache-path "$CACHE_ROOT" \
     --timeout "$ANVIL_FORK_TIMEOUT_MS" \
     --retries "$ANVIL_FORK_RETRIES" &

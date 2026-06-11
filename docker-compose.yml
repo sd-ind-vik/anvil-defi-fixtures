@@ -4,29 +4,57 @@ services:
     image: anvil-defi-fixtures:latest
     environment:
       CHAIN_NAME: ethereum
+      RPC_PORT: "8545"
+      SHIM_PORT: "18549"
     ports:
-      - "18545:8545"
+      - "${ANVIL_ETHEREUM_PORT:-18545}:8545"
+    healthcheck:
+      test: ["CMD", "cast", "block-number", "--rpc-url", "http://127.0.0.1:8545"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
 
   anvil-base:
     build: .
     image: anvil-defi-fixtures:latest
     environment:
       CHAIN_NAME: base
+      RPC_PORT: "8545"
+      SHIM_PORT: "18549"
     ports:
-      - "18546:8545"
+      - "${ANVIL_BASE_PORT:-18546}:8545"
+    healthcheck:
+      test: ["CMD", "cast", "block-number", "--rpc-url", "http://127.0.0.1:8545"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
 
   anvil-arbitrum:
     build: .
     image: anvil-defi-fixtures:latest
     environment:
       CHAIN_NAME: arbitrum
+      RPC_PORT: "8545"
+      SHIM_PORT: "18549"
     ports:
-      - "18547:8545"
+      - "${ANVIL_ARBITRUM_PORT:-18547}:8545"
+    healthcheck:
+      test: ["CMD", "cast", "block-number", "--rpc-url", "http://127.0.0.1:8545"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
 
   anvil-optimism:
     build: .
     image: anvil-defi-fixtures:latest
     environment:
       CHAIN_NAME: optimism
+      RPC_PORT: "8545"
+      SHIM_PORT: "18549"
     ports:
-      - "18548:8545"
+      - "${ANVIL_OPTIMISM_PORT:-18548}:8545"
+    healthcheck:
+      test: ["CMD", "cast", "block-number", "--rpc-url", "http://127.0.0.1:8545"]
+      interval: 5s
+      timeout: 3s
+      retries: 12

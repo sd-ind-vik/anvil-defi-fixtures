@@ -116,6 +116,7 @@ def make_block(cache: dict[str, Any], include_transactions: bool) -> dict[str, A
 class OfflineRpcHandler(BaseHTTPRequestHandler):
     cache: dict[str, Any]
     chain_id: int
+    logs: list[Any] | None = None  # None = no file loaded; [] = file loaded but empty
 
     def do_POST(self) -> None:
         length = int(self.headers.get("content-length", "0"))
@@ -198,7 +199,62 @@ class OfflineRpcHandler(BaseHTTPRequestHandler):
             if value is None:
                 raise ValueError(f"storage for {address} slot {slot} is not cached")
             return bytes32(str(value))
+        if method == "eth_getLogs":
+            if self.logs is None:
+                raise ValueError("no logs file loaded; recapture fixtures to enable eth_getLogs")
+            return self._filter_logs(params[0] if params else {})
         raise ValueError("method not implemented by offline shim")
+
+    def _filter_logs(self, filter_obj: dict[str, Any]) -> list[Any]:
+        def parse_block(val: Any) -> int:
+            if val is None or val in ("latest", "pending", "safe", "finalized"):
+                return 2**64
+            if val == "earliest":
+                return 0
+            if isinstance(val, str) and val.startswith("0x"):
+                return int(val, 16)
+            return int(val)
+
+        from_block = parse_block(filter_obj.get("fromBlock", "0x0"))
+        to_block = parse_block(filter_obj.get("toBlock"))
+
+        address_filter = filter_obj.get("address")
+        if isinstance(address_filter, str):
+            addr_set: set[str] | None = {address_filter.lower()}
+        elif isinstance(address_filter, list):
+            addr_set = {a.lower() for a in address_filter if a}
+        else:
+            addr_set = None
+
+        topic_filters: list[Any] = filter_obj.get("topics") or []
+
+        result = []
+        for log in self.logs:
+            block_val = log.get("blockNumber", "0x0")
+            block_num = int(block_val, 16) if isinstance(block_val, str) and block_val.startswith("0x") else int(block_val or 0)
+            if block_num < from_block or block_num > to_block:
+                continue
+            if addr_set and log.get("address", "").lower() not in addr_set:
+                continue
+            log_topics: list[str] = log.get("topics") or []
+            match = True
+            for i, tf in enumerate(topic_filters):
+                if tf is None:
+                    continue
+                if i >= len(log_topics):
+                    match = False
+                    break
+                if isinstance(tf, str):
+                    if log_topics[i].lower() != tf.lower():
+                        match = False
+                        break
+                elif isinstance(tf, list):
+                    if not any(t and log_topics[i].lower() == t.lower() for t in tf):
+                        match = False
+                        break
+            if match:
+                result.append(log)
+        return result
 
     def log_message(self, _format: str, *args: Any) -> None:
         return
@@ -210,11 +266,17 @@ def main() -> None:
     parser.add_argument("--chain-id", required=True, type=int)
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", required=True, type=int)
+    parser.add_argument("--logs-file", default=None)
     args = parser.parse_args()
 
     cache = json.loads(Path(args.cache_file).read_text())
     OfflineRpcHandler.cache = cache
     OfflineRpcHandler.chain_id = args.chain_id
+    if args.logs_file and Path(args.logs_file).exists():
+        try:
+            OfflineRpcHandler.logs = json.loads(Path(args.logs_file).read_text())
+        except Exception:
+            OfflineRpcHandler.logs = []  # file present but unreadable → treat as empty
     server = ThreadingHTTPServer((args.host, args.port), OfflineRpcHandler)
     server.serve_forever()
 

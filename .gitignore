@@ -1,5 +1,5 @@
-.DS_Store
+# synthetic fixtures are generated on demand
+fixtures/anvil-state/**/*-synthetic-*.json
+__pycache__/
 *.log
 .env
-.env.*
-!.env.example
