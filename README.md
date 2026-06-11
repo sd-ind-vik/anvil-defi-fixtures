@@ -146,29 +146,72 @@ cast rpc --rpc-url http://127.0.0.1:18545 evm_mine
 
 ## Recapturing Fixtures
 
-Recapture when you need a fresher fork block or wider protocol coverage.
-Requires live RPC access (public endpoints work):
+Recapture when you need a fresher fork block or updated protocol coverage.
+
+### Prerequisites
+
+| Tool | Install |
+|------|---------|
+| `anvil` + `cast` | `curl -L https://foundry.paradigm.xyz \| bash` |
+| `jq` | `brew install jq` / `apt install jq` |
+| `python3` | system |
+| `sha256sum` | macOS: `brew install coreutils` |
+| `tar` | system |
+
+### RPC URLs
+
+The script defaults to public endpoints (may rate-limit on heavy capture). Set your own for reliability:
 
 ```bash
-# All chains — active-block selection (finds most recent block with Aave activity)
+export ETH_MAINNET_RPC_URL=https://mainnet.infura.io/v3/<key>
+export BASE_RPC_URL=https://base-mainnet.infura.io/v3/<key>
+export ARBITRUM_RPC_URL=https://arbitrum-mainnet.infura.io/v3/<key>
+export OPTIMISM_RPC_URL=https://optimism-mainnet.infura.io/v3/<key>
+```
+
+Public fallbacks (no key needed):
+`https://ethereum-rpc.publicnode.com`, `https://base-rpc.publicnode.com`,
+`https://arbitrum-one-rpc.publicnode.com`, `https://optimism-rpc.publicnode.com`
+
+### Run
+
+```bash
+# All 4 chains — active-block mode (finds most recent block with Aave activity)
 ANVIL_CAPTURE_FIND_ACTIVE_BLOCK=true bash scripts/capture-anvil-state.sh
 
-# Single chain
+# Single chain by chain ID
 ANVIL_CAPTURE_CHAINS=42161 \
 ANVIL_CAPTURE_FIND_ACTIVE_BLOCK=true \
 bash scripts/capture-anvil-state.sh
 
-# Custom log scan depth (default: 50 blocks)
+# Latest block (no activity scan)
+ANVIL_CAPTURE_USE_LATEST_BLOCK=true bash scripts/capture-anvil-state.sh
+
+# Wider event log window (default: 50 blocks)
 ANVIL_CAPTURE_LOG_SCAN_DEPTH=100 \
 ANVIL_CAPTURE_FIND_ACTIVE_BLOCK=true \
 bash scripts/capture-anvil-state.sh
 ```
 
-After recapture, rebuild the image:
+### What It Does
+
+For each chain the script:
+1. Starts a temporary Anvil fork against the live RPC
+2. Selects the most recent block with a `ReserveDataUpdated` event (last 500 blocks)
+3. Warms contract code and storage for Aave V3 (pool, oracle, data provider, aToken / variableDebtToken / stableDebtToken per reserve) and Uniswap V3 (pools, TWAP observations)
+4. Dumps state snapshot → `fixtures/anvil-state/<chain>/chain-<id>-block-<n>.json`
+5. Packages Foundry RPC cache → `chain-<id>-block-<n>-foundry-cache.tar.gz`
+6. Fetches 50-block event window → `chain-<id>-block-<n>-logs.json`
+7. Updates `fixtures/anvil-state/manifest.json`
+
+### After Recapture
 
 ```bash
 docker compose build
 docker compose up -d --force-recreate
+
+# Verify
+bash scripts/test-offline-logs.sh --no-docker
 ```
 
 ## Offline Scope
