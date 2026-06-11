@@ -85,16 +85,16 @@ cleanup() {
   printf '\n'
   log_info "Shutting down..."
   [[ "$START_DOCKER" == true ]] && \
-    docker compose --profile offline-anvil stop \
-      offline-anvil-ethereum offline-anvil-base offline-anvil-arbitrum offline-anvil-optimism \
+    docker compose stop \
+      anvil-ethereum anvil-base anvil-arbitrum anvil-optimism \
       >/dev/null 2>&1 || true
 }
 trap cleanup EXIT INT TERM
 
 start_anvils() {
   log_info "Starting offline Anvil containers..."
-  docker compose --profile offline-anvil up -d \
-    offline-anvil-ethereum offline-anvil-base offline-anvil-arbitrum offline-anvil-optimism \
+  docker compose up -d \
+    anvil-ethereum anvil-base anvil-arbitrum anvil-optimism \
     >/dev/null 2>&1
 }
 
@@ -248,7 +248,7 @@ miner_loop() {
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
-printf "${C_BOLD}chain-sentry offline ingestor${C_RESET}  mine_interval=${MINE_INTERVAL}s  accounts=${AAVE_ACCOUNTS}\n\n"
+printf "${C_BOLD}anvil-defi-fixtures offline ingestor${C_RESET}  mine_interval=${MINE_INTERVAL}s  accounts=${AAVE_ACCOUNTS}\n\n"
 
 if [[ "$START_DOCKER" == true ]]; then
   start_anvils
