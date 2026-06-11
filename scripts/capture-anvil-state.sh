@@ -4,15 +4,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-CAPTURE_MODE="${ANVIL_CAPTURE_MODE:-fork}"
-if [[ "$CAPTURE_MODE" == "synthetic" ]]; then
-  MANIFEST="${ANVIL_OFFLINE_STATE_MANIFEST:-fixtures/anvil-state/synthetic-manifest.json}"
-else
-  MANIFEST="${ANVIL_OFFLINE_STATE_MANIFEST:-fixtures/anvil-state/manifest.json}"
-fi
+MANIFEST="${ANVIL_OFFLINE_STATE_MANIFEST:-fixtures/anvil-state/manifest.json}"
 CHAIN_CONFIG="${CHAIN_CONFIG:-config/chains.json}"
-SYNTHETIC_TIMESTAMP="${ANVIL_SYNTHETIC_TIMESTAMP:-1750000000}"
-export ANVIL_SYNTHETIC_TIMESTAMP="$SYNTHETIC_TIMESTAMP"
 CAPTURE_PORT="${ANVIL_CAPTURE_PORT:-19545}"
 CAPTURE_ONLY="${ANVIL_CAPTURE_CHAINS:-}"
 CAPTURE_USE_LATEST_BLOCK="${ANVIL_CAPTURE_USE_LATEST_BLOCK:-false}"
@@ -749,76 +742,6 @@ update_manifest_aave_warmed_contracts() {
   printf 'updated manifest warmed_contracts for chain %s\n' "$chain_id"
 }
 
-capture_synthetic_fixture() {
-  local fixture="$1"
-  local chain_id chain_name state_file chain_config pool
-  local state_dir tmp_state log_file rpc_url_local pid actual_chain_id anvil_version
-  local address code
-  chain_id="$(jq -r '.chain_id' <<<"$fixture")"
-  chain_name="$(jq -r '.chain_name' <<<"$fixture")"
-  state_file="$(jq -r '.state_file' <<<"$fixture")"
-
-  if ! fixture_enabled "$chain_id"; then
-    printf 'skipping %s chain %s because ANVIL_CAPTURE_CHAINS=%s\n' "$chain_name" "$chain_id" "$CAPTURE_ONLY"
-    return 0
-  fi
-
-  chain_config="$(chain_config_for "$chain_id")"
-  if [[ -z "$chain_config" ]]; then
-    printf 'chain %s is missing from %s\n' "$chain_id" "$CHAIN_CONFIG" >&2
-    return 1
-  fi
-  pool="$(jq -r '.protocols.aave.pool // empty' <<<"$chain_config")"
-  if [[ -z "$pool" ]]; then
-    printf 'skipping %s chain %s: no Aave pool configured\n' "$chain_name" "$chain_id"
-    return 0
-  fi
-
-  state_dir="$(dirname "$state_file")"
-  mkdir -p "$state_dir"
-  tmp_state="${state_file}.tmp"
-  log_file="/tmp/chainsentry-synthetic-${chain_name}-${chain_id}.log"
-  rpc_url_local="http://127.0.0.1:${CAPTURE_PORT}"
-  rm -f "$tmp_state"
-
-  log "Generate synthetic Aave state for ${chain_name} chain ${chain_id} (no upstream RPC)"
-  anvil \
-    --host 127.0.0.1 \
-    --port "$CAPTURE_PORT" \
-    --chain-id "$chain_id" \
-    --timestamp "$SYNTHETIC_TIMESTAMP" \
-    --dump-state "$tmp_state" >"$log_file" 2>&1 &
-  pid="$!"
-  ANVIL_PIDS+=("$pid")
-
-  wait_for_anvil "$rpc_url_local" "$pid" "$log_file"
-  actual_chain_id="$(cast chain-id --rpc-url "$rpc_url_local")"
-  if [[ "$actual_chain_id" != "$chain_id" ]]; then
-    printf 'expected synthetic %s chain id %s, got %s\n' "$chain_name" "$chain_id" "$actual_chain_id" >&2
-    return 1
-  fi
-
-  while IFS=' ' read -r address code; do
-    [[ -z "$address" || -z "$code" ]] && continue
-    cast rpc --rpc-url "$rpc_url_local" anvil_setCode "$address" "$code" >/dev/null
-  done < <(python3 scripts/generate-aave-mock-state.py <<<"$chain_config")
-
-  warm_aave_reads "$rpc_url_local" "$chain_id" "$chain_name" "$chain_config"
-  warm_gas_tracking_reads "$rpc_url_local"
-  local warm_block
-  for warm_block in $(seq 1 "$CAPTURE_WARM_MINED_BLOCKS"); do
-    cast rpc --rpc-url "$rpc_url_local" evm_mine >/dev/null
-    warm_aave_reads "$rpc_url_local" "$chain_id" "$chain_name" "$chain_config" || true
-    warm_gas_tracking_reads "$rpc_url_local"
-  done
-  stop_anvil_and_wait_for_dump "$pid" "$tmp_state" "$log_file"
-  mv "$tmp_state" "$state_file"
-  update_manifest_hash "$chain_id" "$state_file"
-  anvil_version="$(anvil --version | head -n 1)"
-  update_manifest_anvil_version "$chain_id" "$anvil_version"
-  update_manifest_aave_warmed_contracts "$chain_id" "$chain_config"
-}
-
 capture_fixture() {
   local fixture="$1"
   local chain_id chain_name fork_block state_file source_rpc_env rpc_url rpc_url_value
@@ -959,11 +882,7 @@ if [[ "${#fixtures[@]}" -eq 0 ]]; then
 fi
 
 for fixture in "${fixtures[@]}"; do
-  if [[ "$CAPTURE_MODE" == "synthetic" ]]; then
-    capture_synthetic_fixture "$fixture"
-  else
-    capture_fixture "$fixture"
-  fi
+  capture_fixture "$fixture"
 done
 
 log "Offline Anvil state capture complete"
