@@ -66,20 +66,32 @@ trap cleanup EXIT INT TERM
 
 log() { printf '\n==> %s\n' "$1"; }
 
-# macOS: no 'timeout'; use gtimeout (brew install coreutils) or a manual fallback
+# macOS: no 'timeout'; use gtimeout (brew install coreutils) or python3 fallback.
+# The python3 path uses start_new_session + killpg so the entire process tree
+# (including background miner_loop children) is killed on timeout.
 run_timeout() {
   local secs="$1"; shift
   if command -v timeout >/dev/null 2>&1; then
-    timeout "$secs" "$@"
+    timeout "$secs" "$@"; return $?
   elif command -v gtimeout >/dev/null 2>&1; then
-    gtimeout "$secs" "$@"
-  else
-    "$@" & local pid=$!
-    ( sleep "$secs"; kill "$pid" 2>/dev/null ) & local watcher=$!
-    wait "$pid" 2>/dev/null; local code=$?
-    kill "$watcher" 2>/dev/null; wait "$watcher" 2>/dev/null || true
-    return $code
+    gtimeout "$secs" "$@"; return $?
   fi
+  python3 - "$secs" "$@" <<'PY'
+import sys, subprocess, os, signal
+secs = int(sys.argv[1])
+cmd  = sys.argv[2:]
+try:
+    p = subprocess.Popen(cmd, start_new_session=True)
+    p.wait(timeout=secs)
+    sys.exit(p.returncode)
+except subprocess.TimeoutExpired:
+    os.killpg(os.getpgid(p.pid), signal.SIGTERM)
+    try:
+        p.wait(timeout=3)
+    except subprocess.TimeoutExpired:
+        os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+    sys.exit(124)
+PY
 }
 
 # macOS bash 3.2 has no associative arrays — use a function instead
