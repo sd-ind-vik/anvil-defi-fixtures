@@ -5,12 +5,12 @@
     {
       "chain_id": 1,
       "chain_name": "ethereum",
-      "fork_block": 25295163,
-      "state_file": "fixtures/anvil-state/ethereum/chain-1-block-25295163.json",
+      "fork_block": 25295215,
+      "state_file": "fixtures/anvil-state/ethereum/chain-1-block-25295215.json",
       "source_rpc_env": "ETH_MAINNET_RPC_URL",
-      "sha256": "998783178ff4d762fc1d07d6a56ea13940a565ebe63abc329f51da5eb8cf905e",
-      "cache_archive": "fixtures/anvil-state/ethereum/chain-1-block-25295163-foundry-cache.tar.gz",
-      "cache_sha256": "d09f0480a06893e3f5d43e7ecfe9533626d84ae82778c9938c9ecbc08c9fdb7f",
+      "sha256": "a196478c00a881ec7db73757d03e2e68840accdff9ed77effa36008505d57544",
+      "cache_archive": "fixtures/anvil-state/ethereum/chain-1-block-25295215-foundry-cache.tar.gz",
+      "cache_sha256": "cac8733da437cfe187a3473163fc5619b6ccbeadda94e05cee0f363e04d95007",
       "anvil_version": "anvil Version: 1.5.1-stable",
       "warmed_protocols": [
         "aave",
