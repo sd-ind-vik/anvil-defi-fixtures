@@ -6,14 +6,18 @@
 # ingestor for a bounded window.
 #
 # Usage:
+#   # From a fresh clone (most common):
+#   git clone https://github.com/sd-ind-vik/anvil-defi-fixtures.git
+#   bash anvil-defi-fixtures/scripts/run-fixtures-ci.sh --in-place
+#
+#   # From anywhere (auto-clones):
 #   bash scripts/run-fixtures-ci.sh [OPTIONS]
 #
 # Options:
+#   --in-place         Use the repo this script lives in (no clone needed)
 #   --ingest-secs N    Seconds to run the ingestor (default: 30)
 #   --skip-build       Skip docker build (use existing image)
 #   --keep             Keep containers running after script exits
-#   --no-clone         Expect repo already cloned in $WORK_DIR
-#   --work-dir PATH    Use this directory instead of a temp dir
 #
 # Requires: git, docker, cast (foundry), python3
 set -euo pipefail
@@ -22,16 +26,14 @@ REMOTE_URL="https://github.com/sd-ind-vik/anvil-defi-fixtures.git"
 INGEST_SECS=30
 SKIP_BUILD=false
 KEEP_CONTAINERS=false
-NO_CLONE=false
-WORK_DIR=""
+IN_PLACE=false
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
+    --in-place)     IN_PLACE=true ;;
     --ingest-secs)  shift; INGEST_SECS="$1" ;;
     --skip-build)   SKIP_BUILD=true ;;
     --keep)         KEEP_CONTAINERS=true ;;
-    --no-clone)     NO_CLONE=true ;;
-    --work-dir)     shift; WORK_DIR="$1" ;;
     *) printf 'Unknown option: %s\n' "$1" >&2; exit 1 ;;
   esac
   shift
@@ -39,12 +41,17 @@ done
 
 # ── Workspace ─────────────────────────────────────────────────────────────────
 
-OWNS_WORK=false
-if [[ -z "$WORK_DIR" ]]; then
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+if [[ "$IN_PLACE" == true ]]; then
+  REPO="$(cd "$SCRIPT_DIR/.." && pwd)"
+  OWNS_WORK=false
+  WORK_DIR="$REPO"
+else
   WORK_DIR="$(mktemp -d)"
+  REPO="$WORK_DIR/repo"
   OWNS_WORK=true
 fi
-REPO="$WORK_DIR/repo"
 
 cleanup() {
   if [[ "$KEEP_CONTAINERS" == false ]] && [[ -d "$REPO" ]]; then
@@ -61,12 +68,11 @@ log() { printf '\n==> %s\n' "$1"; }
 
 # ── 1. Clone ──────────────────────────────────────────────────────────────────
 
-if [[ "$NO_CLONE" == false ]]; then
+if [[ "$IN_PLACE" == true ]]; then
+  log "Using repo at $REPO"
+else
   log "Clone $REMOTE_URL"
   git clone --depth 1 "$REMOTE_URL" "$REPO"
-else
-  [[ -d "$REPO" ]] || { printf 'ERROR: --no-clone set but %s does not exist\n' "$REPO" >&2; exit 1; }
-  log "Using existing repo at $REPO"
 fi
 
 cd "$REPO"
