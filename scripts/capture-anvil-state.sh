@@ -526,6 +526,11 @@ warm_protocol_reads() {
     warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$contract"
   done < <(jq -r '.warmed_contracts[]?' <<<"$fixture")
 
+  # Multicall3 — deployed at the same address on all EVM chains
+  local multicall3="0xcA11bde05977b3631167028862bE2a173976CA11"
+  warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$multicall3" || true
+  best_effort_call "$rpc_url" "$multicall3" 'getEthBalance(address)(uint256)' 0x0000000000000000000000000000000000000000
+
   warm_aave_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_uniswap_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_sequencer_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
