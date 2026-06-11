@@ -949,8 +949,11 @@ if ! jq -e '.schema_version == "1.0.0" and (.fixtures | type == "array")' "$MANI
   exit 1
 fi
 
-mapfile -t fixtures < <(jq -c '.fixtures[]' "$MANIFEST")
-if ((${#fixtures[@]} == 0)); then
+fixtures=()
+while IFS= read -r _fix; do
+  fixtures+=("$_fix")
+done < <(jq -c '.fixtures[]' "$MANIFEST")
+if [[ "${#fixtures[@]}" -eq 0 ]]; then
   printf 'offline Anvil manifest has no fixtures: %s\n' "$MANIFEST" >&2
   exit 1
 fi
