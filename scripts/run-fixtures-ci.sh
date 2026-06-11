@@ -66,6 +66,32 @@ trap cleanup EXIT INT TERM
 
 log() { printf '\n==> %s\n' "$1"; }
 
+# macOS: no 'timeout'; use gtimeout (brew install coreutils) or a manual fallback
+run_timeout() {
+  local secs="$1"; shift
+  if command -v timeout >/dev/null 2>&1; then
+    timeout "$secs" "$@"
+  elif command -v gtimeout >/dev/null 2>&1; then
+    gtimeout "$secs" "$@"
+  else
+    "$@" & local pid=$!
+    ( sleep "$secs"; kill "$pid" 2>/dev/null ) & local watcher=$!
+    wait "$pid" 2>/dev/null; local code=$?
+    kill "$watcher" 2>/dev/null; wait "$watcher" 2>/dev/null || true
+    return $code
+  fi
+}
+
+# macOS bash 3.2 has no associative arrays — use a function instead
+chain_rpc() {
+  case "$1" in
+    ethereum) echo "http://127.0.0.1:18545" ;;
+    base)     echo "http://127.0.0.1:18546" ;;
+    arbitrum) echo "http://127.0.0.1:18547" ;;
+    optimism) echo "http://127.0.0.1:18548" ;;
+  esac
+}
+
 # ── 1. Clone ──────────────────────────────────────────────────────────────────
 
 if [[ "$IN_PLACE" == true ]]; then
@@ -92,15 +118,9 @@ docker compose up -d
 # ── 4. Wait for all 4 RPCs ────────────────────────────────────────────────────
 
 log "Wait for RPC readiness"
-declare -A CHAIN_RPCS=(
-  [ethereum]="http://127.0.0.1:18545"
-  [base]="http://127.0.0.1:18546"
-  [arbitrum]="http://127.0.0.1:18547"
-  [optimism]="http://127.0.0.1:18548"
-)
 
 for name in ethereum base arbitrum optimism; do
-  rpc="${CHAIN_RPCS[$name]}"
+  rpc="$(chain_rpc "$name")"
   printf '  waiting for %s (%s)...' "$name" "$rpc"
   ready=false
   for i in $(seq 1 90); do
@@ -128,10 +148,10 @@ bash scripts/test-offline-logs.sh --no-docker
 # ── 6. Offline ingestor ───────────────────────────────────────────────────────
 
 log "Run offline ingestor for ${INGEST_SECS}s (ingest-offline.sh)"
-timeout "$INGEST_SECS" bash scripts/ingest-offline.sh --no-docker --mine-interval 3 || {
+run_timeout "$INGEST_SECS" bash scripts/ingest-offline.sh --no-docker --mine-interval 3 || {
   code=$?
-  # timeout exits 124; anything else is a real error
-  [[ $code -eq 124 ]] || { printf 'ingestor exited with code %d\n' "$code" >&2; exit "$code"; }
+  # timeout exits 124; gtimeout also 124; manual fallback exits 143 (SIGTERM)
+  [[ $code -eq 124 || $code -eq 143 ]] || { printf 'ingestor exited with code %d\n' "$code" >&2; exit "$code"; }
 }
 
 log "CI run complete"

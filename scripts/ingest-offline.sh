@@ -41,21 +41,7 @@ CHAINS=(
   "10|optimism|http://127.0.0.1:18548|0x794a61358D6845594F94dc1DB02A252b5b4814aD||0xD81eb3728a631871a7eBBaD631b5f424909f0c77|0x4200000000000000000000000000000000000006,0x7F5c764cBc14f9669B88837ca1490cCa17c31607,0x4200000000000000000000000000000000000042"
 )
 
-# Token symbols for pretty-printing
-declare -A SYMBOLS=(
-  ["0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"]="USDC"
-  ["0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"]="WETH"
-  ["0x2260fac5e5542a773aa44fbcfedf7c193bc2c599"]="WBTC"
-  ["0x6b175474e89094c44da98b954eedeac495271d0f"]="DAI"
-  ["0x4200000000000000000000000000000000000006"]="WETH"
-  ["0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"]="USDC"
-  ["0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"]="USDbC"
-  ["0x82af49447d8a07e3bd95bd0d56f35241523fbab1"]="WETH"
-  ["0xaf88d065e77c8cc2239327c5edb3a432268e5831"]="USDC"
-  ["0x912ce59144191c1204e64559fe8253a0e49e6548"]="ARB"
-  ["0x7f5c764cbc14f9669b88837ca1490cca17c31607"]="USDC.e"
-  ["0x4200000000000000000000000000000000000042"]="OP"
-)
+# Token symbols for pretty-printing (case statement — bash 3.2 compatible)
 
 # ── Colours ───────────────────────────────────────────────────────────────────
 
@@ -69,7 +55,23 @@ C_OK='\033[32m'        # green
 C_WARN='\033[31m'      # red
 
 ts()  { date '+%H:%M:%S'; }
-sym() { local k; k="$(tr '[:upper:]' '[:lower:]' <<<"$1")"; echo "${SYMBOLS[$k]:-${1:0:8}..}"; }
+sym() {
+  case "$(tr '[:upper:]' '[:lower:]' <<<"$1")" in
+    "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48") echo "USDC" ;;
+    "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2") echo "WETH" ;;
+    "0x2260fac5e5542a773aa44fbcfedf7c193bc2c599") echo "WBTC" ;;
+    "0x6b175474e89094c44da98b954eedeac495271d0f") echo "DAI"  ;;
+    "0x4200000000000000000000000000000000000006") echo "WETH" ;;
+    "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913") echo "USDC" ;;
+    "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca") echo "USDbC" ;;
+    "0x82af49447d8a07e3bd95bd0d56f35241523fbab1") echo "WETH" ;;
+    "0xaf88d065e77c8cc2239327c5edb3a432268e5831") echo "USDC" ;;
+    "0x912ce59144191c1204e64559fe8253a0e49e6548") echo "ARB"  ;;
+    "0x7f5c764cbc14f9669b88837ca1490cca17c31607") echo "USDC.e" ;;
+    "0x4200000000000000000000000000000000000042") echo "OP"   ;;
+    *) echo "${1:0:8}.." ;;
+  esac
+}
 
 log_block()  { printf "${C_BLOCK}${C_BOLD}[%s][%s]${C_RESET} ${C_BLOCK}BLOCK${C_RESET}  %s\n" "$(ts)" "$1" "$2"; }
 log_price()  { printf "${C_PRICE}[%s][%s]${C_RESET} PRICE  %s\n"    "$(ts)" "$1" "$2"; }
@@ -84,6 +86,7 @@ DOCKER_PIDS=()
 cleanup() {
   printf '\n'
   log_info "Shutting down..."
+  rm -rf "$_LAST_BLOCK_DIR" 2>/dev/null || true
   [[ "$START_DOCKER" == true ]] && \
     docker compose stop \
       anvil-ethereum anvil-base anvil-arbitrum anvil-optimism \
@@ -166,8 +169,8 @@ print(f'\${v / 1e8:,.2f}')
 
 # ── Per-chain ingestion ───────────────────────────────────────────────────────
 
-# Associative array tracking last seen block per chain
-declare -A LAST_BLOCK=()
+# Per-chain last-seen block (temp files — bash 3.2 compatible)
+_LAST_BLOCK_DIR="$(mktemp -d)"
 
 ingest_chain() {
   local entry="$1"
@@ -179,9 +182,9 @@ ingest_chain() {
   block_hex="$(cast rpc --rpc-url "$rpc" eth_blockNumber 2>/dev/null || echo '')"
   block_hex="${block_hex//\"/}"   # strip JSON quotes: "0x1a2b" → 0x1a2b
   block_num="$(python3 -c "print(int('${block_hex:-0x0}',16))" 2>/dev/null || echo 0)"
-  local last="${LAST_BLOCK[$chain_id]:-}"
+  local last; last="$(cat "$_LAST_BLOCK_DIR/$chain_id" 2>/dev/null || echo '')"
   [[ "$block_num" == "$last" ]] && return 0   # no new block yet
-  LAST_BLOCK[$chain_id]="$block_num"
+  echo "$block_num" > "$_LAST_BLOCK_DIR/$chain_id"
 
   # Block header
   local blk_json
