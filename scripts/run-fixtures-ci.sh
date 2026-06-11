@@ -97,10 +97,10 @@ PY
 # macOS bash 3.2 has no associative arrays — use a function instead
 chain_rpc() {
   case "$1" in
-    ethereum) echo "http://127.0.0.1:18545" ;;
-    base)     echo "http://127.0.0.1:18546" ;;
-    arbitrum) echo "http://127.0.0.1:18547" ;;
-    optimism) echo "http://127.0.0.1:18548" ;;
+    ethereum) echo "http://127.0.0.1:8545" ;;
+    base)     echo "http://127.0.0.1:8546" ;;
+    arbitrum) echo "http://127.0.0.1:8547" ;;
+    optimism) echo "http://127.0.0.1:8548" ;;
   esac
 }
 
@@ -122,15 +122,17 @@ if [[ "$SKIP_BUILD" == false ]]; then
   docker compose build
 fi
 
-# ── 3. Start all 4 nodes ──────────────────────────────────────────────────────
+# ── 3. Protocol test suite (load-state) ───────────────────────────────────────
 
-log "Start containers"
+log "Run protocol test suite (test-load-state.sh)"
+bash scripts/test-load-state.sh --skip-build
+
+# ── 4. Offline ingestor ───────────────────────────────────────────────────────
+
+log "Start containers for ingestor run"
 docker compose up -d
 
-# ── 4. Wait for all 4 RPCs ────────────────────────────────────────────────────
-
 log "Wait for RPC readiness"
-
 for name in ethereum base arbitrum optimism; do
   rpc="$(chain_rpc "$name")"
   printf '  waiting for %s (%s)...' "$name" "$rpc"
@@ -151,13 +153,6 @@ for name in ethereum base arbitrum optimism; do
     exit 1
   fi
 done
-
-# ── 5. Log validation ─────────────────────────────────────────────────────────
-
-log "Run log/event validation (test-offline-logs.sh)"
-bash scripts/test-offline-logs.sh --no-docker
-
-# ── 6. Offline ingestor ───────────────────────────────────────────────────────
 
 log "Run offline ingestor for ${INGEST_SECS}s (ingest-offline.sh)"
 run_timeout "$INGEST_SECS" bash scripts/ingest-offline.sh --no-docker --mine-interval 3 || {

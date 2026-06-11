@@ -5,16 +5,6 @@ MANIFEST="${ANVIL_OFFLINE_STATE_MANIFEST:-/app/fixtures/anvil-state/manifest.jso
 CHAIN_SELECTOR="${CHAIN_ID:-${CHAIN_NAME:-ethereum}}"
 RPC_HOST="${RPC_HOST:-0.0.0.0}"
 RPC_PORT="${RPC_PORT:-8545}"
-SHIM_HOST="${SHIM_HOST:-127.0.0.1}"
-SHIM_PORT="${SHIM_PORT:-18549}"
-CACHE_ROOT="${CACHE_ROOT:-/tmp/chainsentry-foundry-cache}"
-ANVIL_OFFLINE_MODE="${ANVIL_OFFLINE_MODE:-cache-fork}"
-ANVIL_FORK_TIMEOUT_MS="${ANVIL_FORK_TIMEOUT_MS:-5000}"
-ANVIL_FORK_RETRIES="${ANVIL_FORK_RETRIES:-2}"
-if [ -z "${SHIM_SCRIPT:-}" ]; then
-  SHIM_SCRIPT="$(dirname "$0")/offline-anvil-rpc-shim.py"
-  [ -f "$SHIM_SCRIPT" ] || SHIM_SCRIPT="/usr/local/bin/offline-anvil-rpc-shim.py"
-fi
 
 metadata_file="$(mktemp)"
 python3 - "$MANIFEST" "$CHAIN_SELECTOR" >"$metadata_file" <<'PY'
@@ -41,24 +31,29 @@ if match is None:
     raise SystemExit(f"unknown offline Anvil fixture {selector}; valid fixtures: {valid}")
 
 root = manifest_path.parent.parent.parent
-cache_archive = str(root / match["cache_archive"]) if match.get("cache_archive") else ""
-state_file = root / match["state_file"]
+state_file = str(root / match["state_file"])
+full_state_file = str(root / match["full_state_file"]) if match.get("full_state_file") else ""
 
 for key, value in {
     "OFFLINE_CHAIN_ID": str(match["chain_id"]),
     "OFFLINE_CHAIN_NAME": match["chain_name"],
-    "OFFLINE_FORK_BLOCK": str(match["fork_block"]),
-    "OFFLINE_CACHE_ARCHIVE": str(cache_archive),
-    "OFFLINE_STATE_FILE": str(state_file),
+    "OFFLINE_STATE_FILE": state_file,
+    "OFFLINE_FULL_STATE_FILE": full_state_file,
 }.items():
     print(f"{key}={shlex.quote(value)}")
 PY
 . "$metadata_file"
 rm -f "$metadata_file"
-OFFLINE_LOGS_FILE="${OFFLINE_STATE_FILE%.json}-logs.json"
 
-if [ "$ANVIL_OFFLINE_MODE" != "load-state" ] && [ ! -f "$OFFLINE_CACHE_ARCHIVE" ]; then
-  printf 'offline cache archive not found: %s\n' "$OFFLINE_CACHE_ARCHIVE" >&2
+# Prefer the enriched full state (includes protocol contract code + storage slots).
+# Fall back to the sparse dump-state if the full state is not present.
+_load_state="$OFFLINE_STATE_FILE"
+if [ -n "${OFFLINE_FULL_STATE_FILE:-}" ] && [ -f "$OFFLINE_FULL_STATE_FILE" ]; then
+  _load_state="$OFFLINE_FULL_STATE_FILE"
+fi
+
+if [ ! -f "$_load_state" ]; then
+  printf 'offline state file not found: %s\n' "$_load_state" >&2
   exit 1
 fi
 
@@ -66,100 +61,25 @@ cleanup() {
   if [ -n "${anvil_pid:-}" ]; then
     kill "$anvil_pid" >/dev/null 2>&1 || true
   fi
-  if [ -n "${shim_pid:-}" ]; then
-    kill "$shim_pid" >/dev/null 2>&1 || true
-  fi
 }
 trap cleanup INT TERM EXIT
 
-if [ "$ANVIL_OFFLINE_MODE" = "load-state" ]; then
-  if [ ! -f "$OFFLINE_STATE_FILE" ]; then
-    printf 'offline state file not found: %s\n' "$OFFLINE_STATE_FILE" >&2
-    exit 1
-  fi
-  printf 'starting offline Anvil for %s at %s:%s from state=%s\n' "$OFFLINE_CHAIN_NAME" "$RPC_HOST" "$RPC_PORT" "$OFFLINE_STATE_FILE"
-  anvil \
-    --host "$RPC_HOST" \
-    --port "$RPC_PORT" \
-    --chain-id "$OFFLINE_CHAIN_ID" \
-    --preserve-historical-states \
-    --load-state "$OFFLINE_STATE_FILE" &
-  anvil_pid="$!"
-else
-  rm -rf "$CACHE_ROOT"
-  mkdir -p "$CACHE_ROOT"
-  tar -xzf "$OFFLINE_CACHE_ARCHIVE" -C "$CACHE_ROOT"
-  CACHE_FILE="$(find "$CACHE_ROOT" -path "*/${OFFLINE_FORK_BLOCK}/storage.json" -type f | head -n 1)"
-  if [ -z "$CACHE_FILE" ]; then
-    printf 'restored cache for %s did not include block %s storage.json\n' "$OFFLINE_CHAIN_NAME" "$OFFLINE_FORK_BLOCK" >&2
-    exit 1
-  fi
+printf 'starting offline Anvil for %s at %s:%s from state=%s\n' \
+  "$OFFLINE_CHAIN_NAME" "$RPC_HOST" "$RPC_PORT" "$_load_state"
 
-  printf 'starting offline RPC shim for %s chain_id=%s cache=%s\n' "$OFFLINE_CHAIN_NAME" "$OFFLINE_CHAIN_ID" "$CACHE_FILE"
-  if [ -f "$OFFLINE_LOGS_FILE" ]; then
-    printf 'loading logs file: %s\n' "$OFFLINE_LOGS_FILE"
-    python3 "$SHIM_SCRIPT" \
-      --cache-file "$CACHE_FILE" \
-      --chain-id "$OFFLINE_CHAIN_ID" \
-      --host "$SHIM_HOST" \
-      --port "$SHIM_PORT" \
-      --logs-file "$OFFLINE_LOGS_FILE" &
-  else
-    python3 "$SHIM_SCRIPT" \
-      --cache-file "$CACHE_FILE" \
-      --chain-id "$OFFLINE_CHAIN_ID" \
-      --host "$SHIM_HOST" \
-      --port "$SHIM_PORT" &
-  fi
-  shim_pid="$!"
-
-  shim_url="http://${SHIM_HOST}:${SHIM_PORT}"
-  for _ in $(seq 1 30); do
-    if python3 - "$shim_url" "$OFFLINE_CHAIN_ID" <<'PY'
-import json
-import sys
-import urllib.request
-
-url = sys.argv[1]
-expected = hex(int(sys.argv[2]))
-payload = json.dumps({"jsonrpc": "2.0", "id": 1, "method": "eth_chainId", "params": []}).encode()
-request = urllib.request.Request(url, data=payload, headers={"content-type": "application/json"})
-try:
-    with urllib.request.urlopen(request, timeout=1) as response:
-        body = json.loads(response.read())
-except Exception:
-    raise SystemExit(1)
-raise SystemExit(0 if body.get("result") == expected else 1)
-PY
-    then
-      break
-    fi
-    if ! kill -0 "$shim_pid" >/dev/null 2>&1; then
-      printf 'offline RPC shim exited during startup\n' >&2
-      exit 1
-    fi
-    sleep 1
-  done
-
-  printf 'starting offline Anvil for %s at %s:%s fork_block=%s\n' "$OFFLINE_CHAIN_NAME" "$RPC_HOST" "$RPC_PORT" "$OFFLINE_FORK_BLOCK"
-  anvil \
-    --host "$RPC_HOST" \
-    --port "$RPC_PORT" \
-    --chain-id "$OFFLINE_CHAIN_ID" \
-    --fork-url "$shim_url" \
-    --fork-block-number "$OFFLINE_FORK_BLOCK" \
-    --fork-chain-id "$OFFLINE_CHAIN_ID" \
-    --preserve-historical-states \
-    --cache-path "$CACHE_ROOT" \
-    --timeout "$ANVIL_FORK_TIMEOUT_MS" \
-    --retries "$ANVIL_FORK_RETRIES" &
-  anvil_pid="$!"
-fi
+anvil \
+  --host "$RPC_HOST" \
+  --port "$RPC_PORT" \
+  --chain-id "$OFFLINE_CHAIN_ID" \
+  --preserve-historical-states \
+  --load-state "$_load_state" &
+anvil_pid="$!"
 
 rpc_url="http://127.0.0.1:${RPC_PORT}"
 for _ in $(seq 1 30); do
   if cast block-number --rpc-url "$rpc_url" >/dev/null 2>&1; then
-    printf 'offline Anvil ready for %s chain_id=%s rpc=%s\n' "$OFFLINE_CHAIN_NAME" "$OFFLINE_CHAIN_ID" "$rpc_url"
+    printf 'offline Anvil ready for %s chain_id=%s rpc=%s\n' \
+      "$OFFLINE_CHAIN_NAME" "$OFFLINE_CHAIN_ID" "$rpc_url"
     wait "$anvil_pid"
     exit $?
   fi

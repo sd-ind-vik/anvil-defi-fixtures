@@ -698,6 +698,37 @@ update_manifest_warmed_contracts() {
   printf 'updated manifest warmed_contracts for chain %s\n' "$chain_id"
 }
 
+update_manifest_full_state() {
+  local chain_id="$1"
+  local full_state_file="$2"
+  local manifest_tmp sha
+  sha="$(sha256sum "$full_state_file" | awk '{print $1}')"
+  manifest_tmp="$(mktemp)"
+  jq --argjson chain_id "$chain_id" --arg f "$full_state_file" --arg sha "$sha" \
+    '(.fixtures[] | select(.chain_id == $chain_id) | .full_state_file) = $f |
+     (.fixtures[] | select(.chain_id == $chain_id) | .full_state_sha256) = $sha' \
+    "$MANIFEST" >"$manifest_tmp"
+  mv "$manifest_tmp" "$MANIFEST"
+  printf 'updated manifest full_state_file for chain %s: %s\n' "$chain_id" "$full_state_file"
+}
+
+enrich_state_with_cache() {
+  local chain_id="$1"
+  local chain_name="$2"
+  local state_file="$3"
+  local cache_archive="$4"
+  local enrich_script full_state_file
+  enrich_script="$(dirname "$0")/enrich-state-with-cache.py"
+  [ -f "$enrich_script" ] || enrich_script="/usr/local/bin/enrich-state-with-cache.py"
+  full_state_file="${state_file%.json}-full.json"
+  if ! python3 "$enrich_script" "$state_file" "$cache_archive" "$full_state_file"; then
+    printf 'warn: enrich-state-with-cache failed for %s chain %s; skipping full state\n' \
+      "$chain_name" "$chain_id" >&2
+    return 0
+  fi
+  update_manifest_full_state "$chain_id" "$full_state_file"
+}
+
 update_manifest_aave_warmed_contracts() {
   local chain_id="$1"
   local chain_config="$2"
@@ -888,6 +919,7 @@ capture_fixture() {
   stop_anvil_and_wait_for_dump "$pid" "$tmp_state" "$log_file"
   mv "$tmp_state" "$state_file"
   archive_foundry_cache "$chain_id" "$chain_name" "$fork_block" "$cache_archive"
+  enrich_state_with_cache "$chain_id" "$chain_name" "$state_file" "$cache_archive"
   if [[ "$ANVIL_CAPTURE_FIND_ACTIVE_BLOCK" == true || "$CAPTURE_USE_LATEST_BLOCK" == true ]]; then
     update_manifest_fork_block "$chain_id" "$fork_block"
     update_manifest_state_file "$chain_id" "$state_file"
@@ -903,11 +935,9 @@ capture_fixture() {
 require_command anvil
 require_command cast
 require_command jq
+require_command python3
 require_command sha256sum
 require_command tar
-if [[ "$CAPTURE_MODE" == "synthetic" ]]; then
-  require_command python3
-fi
 
 if [[ ! -f "$MANIFEST" ]]; then
   printf 'offline Anvil manifest not found: %s\n' "$MANIFEST" >&2
