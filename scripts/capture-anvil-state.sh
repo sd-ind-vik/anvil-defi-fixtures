@@ -563,30 +563,34 @@ warm_lido_reads() {
 
   local steth wsteth oracle curve_pool
   steth="$(jq -r '.protocols.lido.steth // empty' <<<"$chain_config")"
+  wsteth="$(jq -r '.protocols.lido.wsteth // empty' <<<"$chain_config")"
+
+  # Skip chains with no Lido config at all
+  [[ -z "$steth" && -z "$wsteth" ]] && return 0
+
+  # wstETH — bridged ERC-20 on L2 chains (no staking functions, plain token + price feed)
+  if [[ -n "$wsteth" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$wsteth" 2>/dev/null || true
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$wsteth"
+    best_effort_call "$rpc_url" "$wsteth" 'totalSupply()(uint256)'
+    # Mainnet wstETH has these; L2 bridge tokens typically don't — best_effort silently skips
+    best_effort_call "$rpc_url" "$wsteth" 'stEthPerToken()(uint256)'
+    best_effort_call "$rpc_url" "$wsteth" 'getWstETHByStETH(uint256)(uint256)' 1000000000000000000
+    best_effort_call "$rpc_url" "$wsteth" 'getStETHByWstETH(uint256)(uint256)' 1000000000000000000
+  fi
+
+  # Mainnet-only: stETH staking contract, oracle, Curve pool
   [[ -z "$steth" ]] && return 0
 
-  wsteth="$(jq -r '.protocols.lido.wsteth // empty' <<<"$chain_config")"
   oracle="$(jq -r '.protocols.lido.oracle // empty' <<<"$chain_config")"
   curve_pool="$(jq -r '.protocols.lido.curve_pool // empty' <<<"$chain_config")"
 
-  # stETH — the main staking contract (also an ERC-20)
   warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$steth" || return 0
   warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$steth"
   best_effort_call "$rpc_url" "$steth" 'getTotalPooledEther()(uint256)'
   best_effort_call "$rpc_url" "$steth" 'totalSupply()(uint256)'
   best_effort_call "$rpc_url" "$steth" 'getBeaconStat()(uint256,uint256,uint256)'
 
-  # wstETH — wrapped/non-rebasing form used in DeFi
-  if [[ -n "$wsteth" ]]; then
-    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$wsteth"
-    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$wsteth"
-    best_effort_call "$rpc_url" "$wsteth" 'totalSupply()(uint256)'
-    best_effort_call "$rpc_url" "$wsteth" 'stEthPerToken()(uint256)'
-    best_effort_call "$rpc_url" "$wsteth" 'getWstETHByStETH(uint256)(uint256)' 1000000000000000000
-    best_effort_call "$rpc_url" "$wsteth" 'getStETHByWstETH(uint256)(uint256)' 1000000000000000000
-  fi
-
-  # Lido oracle — provides beacon stats for APY derivation
   if [[ -n "$oracle" ]]; then
     warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$oracle"
     warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$oracle"
@@ -594,11 +598,9 @@ warm_lido_reads() {
     best_effort_call "$rpc_url" "$oracle" 'getTotalPooledEther()(uint256)'
   fi
 
-  # Curve stETH/ETH pool — used as instant-exit liquidity path
   if [[ -n "$curve_pool" ]]; then
     warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$curve_pool"
     warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$curve_pool"
-    # Quote 1 ETH → stETH and 1 stETH → ETH
     best_effort_call "$rpc_url" "$curve_pool" 'get_dy(int128,int128,uint256)(uint256)' 0 1 1000000000000000000
     best_effort_call "$rpc_url" "$curve_pool" 'get_dy(int128,int128,uint256)(uint256)' 1 0 1000000000000000000
     best_effort_call "$rpc_url" "$curve_pool" 'get_virtual_price()(uint256)'

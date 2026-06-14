@@ -152,6 +152,9 @@
         "pendle": {
           "oracle": "0x9a9Fa8338dd5E5B2188006f1Cd2Ef26d921650C2",
           "markets": []
+        },
+        "lido": {
+          "wsteth": "0x5979D7b546E38E414F7E9822514be443A4800529"
         }
       }
     },
