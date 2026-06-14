@@ -67,11 +67,18 @@ trap cleanup INT TERM EXIT
 printf 'starting offline Anvil for %s at %s:%s from state=%s\n' \
   "$OFFLINE_CHAIN_NAME" "$RPC_HOST" "$RPC_PORT" "$_load_state"
 
+_block_time_arg=""
+if [ -n "${ANVIL_BLOCK_TIME:-}" ]; then
+  _block_time_arg="--block-time ${ANVIL_BLOCK_TIME}"
+fi
+
+# shellcheck disable=SC2086
 anvil \
   --host "$RPC_HOST" \
   --port "$RPC_PORT" \
   --chain-id "$OFFLINE_CHAIN_ID" \
   --preserve-historical-states \
+  ${_block_time_arg} \
   --load-state "$_load_state" &
 anvil_pid="$!"
 
