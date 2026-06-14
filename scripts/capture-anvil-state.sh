@@ -555,6 +555,131 @@ warm_pendle_reads() {
   done < <(jq -r '.protocols.pendle.markets[]?' <<<"$chain_config")
 }
 
+warm_lido_reads() {
+  local rpc_url="$1"
+  local chain_id="$2"
+  local chain_name="$3"
+  local chain_config="$4"
+
+  local steth wsteth oracle curve_pool
+  steth="$(jq -r '.protocols.lido.steth // empty' <<<"$chain_config")"
+  [[ -z "$steth" ]] && return 0
+
+  wsteth="$(jq -r '.protocols.lido.wsteth // empty' <<<"$chain_config")"
+  oracle="$(jq -r '.protocols.lido.oracle // empty' <<<"$chain_config")"
+  curve_pool="$(jq -r '.protocols.lido.curve_pool // empty' <<<"$chain_config")"
+
+  # stETH — the main staking contract (also an ERC-20)
+  warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$steth" || return 0
+  warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$steth"
+  best_effort_call "$rpc_url" "$steth" 'getTotalPooledEther()(uint256)'
+  best_effort_call "$rpc_url" "$steth" 'totalSupply()(uint256)'
+  best_effort_call "$rpc_url" "$steth" 'getBeaconStat()(uint256,uint256,uint256)'
+
+  # wstETH — wrapped/non-rebasing form used in DeFi
+  if [[ -n "$wsteth" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$wsteth"
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$wsteth"
+    best_effort_call "$rpc_url" "$wsteth" 'totalSupply()(uint256)'
+    best_effort_call "$rpc_url" "$wsteth" 'stEthPerToken()(uint256)'
+    best_effort_call "$rpc_url" "$wsteth" 'getWstETHByStETH(uint256)(uint256)' 1000000000000000000
+    best_effort_call "$rpc_url" "$wsteth" 'getStETHByWstETH(uint256)(uint256)' 1000000000000000000
+  fi
+
+  # Lido oracle — provides beacon stats for APY derivation
+  if [[ -n "$oracle" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$oracle"
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$oracle"
+    best_effort_call "$rpc_url" "$oracle" 'getBeaconStat()(uint256,uint256,uint256)'
+    best_effort_call "$rpc_url" "$oracle" 'getTotalPooledEther()(uint256)'
+  fi
+
+  # Curve stETH/ETH pool — used as instant-exit liquidity path
+  if [[ -n "$curve_pool" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$curve_pool"
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$curve_pool"
+    # Quote 1 ETH → stETH and 1 stETH → ETH
+    best_effort_call "$rpc_url" "$curve_pool" 'get_dy(int128,int128,uint256)(uint256)' 0 1 1000000000000000000
+    best_effort_call "$rpc_url" "$curve_pool" 'get_dy(int128,int128,uint256)(uint256)' 1 0 1000000000000000000
+    best_effort_call "$rpc_url" "$curve_pool" 'get_virtual_price()(uint256)'
+  fi
+}
+
+warm_rocketpool_reads() {
+  local rpc_url="$1"
+  local chain_id="$2"
+  local chain_name="$3"
+  local chain_config="$4"
+
+  local deposit_pool reth storage
+  deposit_pool="$(jq -r '.protocols.rocketpool.deposit_pool // empty' <<<"$chain_config")"
+  [[ -z "$deposit_pool" ]] && return 0
+
+  reth="$(jq -r '.protocols.rocketpool.reth // empty' <<<"$chain_config")"
+  storage="$(jq -r '.protocols.rocketpool.storage // empty' <<<"$chain_config")"
+
+  # RocketStorage — central registry, looked up by all RP contracts at runtime
+  if [[ -n "$storage" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$storage" || return 0
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$storage"
+  fi
+
+  # rETH token — exchange rate drives APY calculation
+  if [[ -n "$reth" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$reth"
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$reth"
+    best_effort_call "$rpc_url" "$reth" 'getExchangeRate()(uint256)'
+    best_effort_call "$rpc_url" "$reth" 'totalSupply()(uint256)'
+    best_effort_call "$rpc_url" "$reth" 'totalCollateral()(uint256)'
+    best_effort_call "$rpc_url" "$reth" 'getEthValue(uint256)(uint256)' 1000000000000000000
+    best_effort_call "$rpc_url" "$reth" 'getRethValue(uint256)(uint256)' 1000000000000000000
+  fi
+
+  # RocketDepositPool — entry point for ETH deposits
+  warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$deposit_pool"
+  warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$deposit_pool"
+  best_effort_call "$rpc_url" "$deposit_pool" 'getBalance()(uint256)'
+  best_effort_call "$rpc_url" "$deposit_pool" 'getMaximumDepositAmount()(uint256)'
+  best_effort_call "$rpc_url" "$deposit_pool" 'getMaximumDepositPoolSize()(uint256)'
+}
+
+warm_eigenlayer_reads() {
+  local rpc_url="$1"
+  local chain_id="$2"
+  local chain_name="$3"
+  local chain_config="$4"
+
+  local strategy_manager wsteth_strategy reth_strategy delegation_manager
+  strategy_manager="$(jq -r '.protocols.eigenlayer.strategy_manager // empty' <<<"$chain_config")"
+  [[ -z "$strategy_manager" ]] && return 0
+
+  wsteth_strategy="$(jq -r '.protocols.eigenlayer.wsteth_strategy // empty' <<<"$chain_config")"
+  reth_strategy="$(jq -r '.protocols.eigenlayer.reth_strategy // empty' <<<"$chain_config")"
+
+  # StrategyManager — entry point for depositIntoStrategy
+  warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$strategy_manager" || return 0
+  warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$strategy_manager"
+  best_effort_call "$rpc_url" "$strategy_manager" 'strategyWhitelister()(address)'
+  # Discover DelegationManager from StrategyManager and warm it too
+  delegation_manager="$(cast call --rpc-url "$rpc_url" "$strategy_manager" 'delegation()(address)' 2>/dev/null || true)"
+  if [[ -n "$delegation_manager" && "$delegation_manager" != "0x0000000000000000000000000000000000000000" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$delegation_manager" 2>/dev/null || true
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$delegation_manager"
+  fi
+
+  # Per-LST strategy contracts — store shares and handle deposit/withdrawal accounting
+  for strategy in "$wsteth_strategy" "$reth_strategy"; do
+    [[ -z "$strategy" || "$strategy" == "null" ]] && continue
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$strategy"
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$strategy"
+    best_effort_call "$rpc_url" "$strategy" 'underlyingToken()(address)'
+    best_effort_call "$rpc_url" "$strategy" 'totalShares()(uint256)'
+    best_effort_call "$rpc_url" "$strategy" 'sharesToUnderlying(uint256)(uint256)' 1000000000000000000
+    best_effort_call "$rpc_url" "$strategy" 'underlyingToShares(uint256)(uint256)' 1000000000000000000
+    best_effort_call "$rpc_url" "$strategy" 'explanation()(string)'
+  done
+}
+
 warm_gas_tracking_reads() {
   local rpc_url="$1"
   local head depth block
@@ -650,6 +775,9 @@ warm_protocol_reads() {
   warm_compound_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_morpho_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_pendle_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
+  warm_lido_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
+  warm_rocketpool_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
+  warm_eigenlayer_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_sequencer_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_control_plane_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_gas_tracking_reads "$rpc_url"

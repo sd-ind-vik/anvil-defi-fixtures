@@ -53,6 +53,22 @@
           "markets": [
             "0x90b70c407f1077f8eb92bf423b44cd92329b737a"
           ]
+        },
+        "lido": {
+          "steth": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
+          "wsteth": "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0",
+          "oracle": "0x442af784A788A5bd6F42A01Ebe9F287a871243fb",
+          "curve_pool": "0xDC24316b9AE028F1497c275EB9192a3Ea0f67022"
+        },
+        "rocketpool": {
+          "deposit_pool": "0xDD3f50F8A6CafbE9b31a427582963f465E745AF8",
+          "reth": "0xae78736Cd615f374D3085123A210448E74Fc6393",
+          "storage": "0x1d8f8f00cfa6758d7bE78336684788Fb0ee0Fa46"
+        },
+        "eigenlayer": {
+          "strategy_manager": "0x858646372CC42E1A627fcE94aa7A7033e7CF075A",
+          "wsteth_strategy": "0x93c4b944D05dfe6df7645A86cd2206016c51564D",
+          "reth_strategy": "0x1BeE69b7dFFfA4E2d53C2a2Df135C388AD25dCD2"
         }
       }
     },
