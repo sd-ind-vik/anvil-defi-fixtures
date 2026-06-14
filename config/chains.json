@@ -4,6 +4,14 @@
       "chain_id": 1,
       "name": "ethereum",
       "sequencer_status_feed": null,
+      "chainlink_feeds": [
+        "0x5424384B256154046E9667dDFaaa5e550145215e",
+        "0xDaa4B74C6bAc4e25188e64ebc68DB5050b690cAc",
+        "0x3f73F03aa83B2A48ed27E964eD0fDb590332095B",
+        "0x260326c220E469358846b187eE53328303Efe19C",
+        "0x5c66322CA59bB61e867B28195576DbD8dA4b08dE",
+        "0xe1D97bF61901B075E9626c8A2340a7De385861Ef"
+      ],
       "protocols": {
         "aave": {
           "pool": "0x87870Bca3F3fD6335C3F4ce8392D69350B4fA4E2",
@@ -50,9 +58,18 @@
         },
         "pendle": {
           "oracle": "0x9a9Fa8338dd5E5B2188006f1Cd2Ef26d921650C2",
+          "router": "0x00000000005BBB0EF59571E58418F9a4357b68A0",
           "markets": [
-            "0x90b70c407f1077f8eb92bf423b44cd92329b737a"
-          ]
+            "0x90b70c407f1077f8eb92bf423b44cd92329b737a",
+            "0x9c560ebaf78e596cbcc27411d633a74d628dd7dc",
+            "0x9dbb0d00f965e22f51434c0ea2c2e09dfbcffb62",
+            "0xc5f938a8ef5f3bf9e72f5aa094baf5e03f4727d3",
+            "0x4a5067c3ff1abb7449244025b0e37feaf77d8e3e",
+            "0x177768caf9d0e036725a51d3f60d7e20f2d4d194"
+          ],
+          "entry_tokens": {
+            "usde": "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3"
+          }
         },
         "lido": {
           "steth": "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84",
@@ -76,6 +93,12 @@
       "chain_id": 8453,
       "name": "base",
       "sequencer_status_feed": null,
+      "chainlink_feeds": [
+        "0x9dA00D23465282005DB222a441a663eE7B9dfCc8",
+        "0xf52D010c7d4ecBfda92c2509900593CE34535D86",
+        "0x3A932b286715abc4A86a4ACAF68A6cdD89E0d446",
+        "0x1AFC5010Fb182B6e62D6a3B522F09F644Fb62EfD"
+      ],
       "protocols": {
         "aave": {
           "pool": "0xA238Dd80C259a72e81d7e4664a9801593F98d1c5",
@@ -116,6 +139,13 @@
       "chain_id": 42161,
       "name": "arbitrum",
       "sequencer_status_feed": "0xFdB631F5EE196F0ed6FAa767959853A9F217697D",
+      "chainlink_feeds": [
+        "0xbD41b1548a5A06544cBcf87c0c54864312842C00",
+        "0xB0C9A7122aaB68F75CffD9851E867144DBFF113b",
+        "0x03f1203a32DF3a941D41dE07F5fD2E71D2a70172",
+        "0x339a66699167D8bc7105C4B9772492D2576E5183",
+        "0xb4a28DF1b926646f94e6fE6f15828c491b4def5F"
+      ],
       "protocols": {
         "aave": {
           "pool": "0x794a61358D6845594F94dc1DB02A252b5b4814aD",
@@ -163,6 +193,13 @@
       "chain_id": 10,
       "name": "optimism",
       "sequencer_status_feed": "0x371EAD81c9102C9BF4874A9075FFFf170F2Ee389",
+      "chainlink_feeds": [
+        "0x13e3Ee699D1909E989722E753853AE30b17e08c5",
+        "0x6379A975Ef93EC2bE87f56A02CCF8535dFAde201",
+        "0xDb4E371F8dc7D834D3F1359295c669352ECe7D9c",
+        "0x724E47194d97263ccb71FDad84b4fed18a8be387",
+        "0xF17e75D58D4Be71B8e674fA104B71a827e38F087"
+      ],
       "protocols": {
         "aave": {
           "pool": "0x794a61358D6845594F94dc1DB02A252b5b4814aD",

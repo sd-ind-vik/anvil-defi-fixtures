@@ -533,7 +533,7 @@ warm_pendle_reads() {
   local chain_id="$2"
   local chain_name="$3"
   local chain_config="$4"
-  local oracle market_addr
+  local oracle router market_addr usde_addr
   local twap_window=900
 
   oracle="$(jq -r '.protocols.pendle.oracle // empty' <<<"$chain_config")"
@@ -541,6 +541,22 @@ warm_pendle_reads() {
 
   warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$oracle" || return 0
   warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$oracle"
+
+  # Router: warm bytecode so swapExactTokenForPt calldata doesn't revert with no-code error
+  router="$(jq -r '.protocols.pendle.router // empty' <<<"$chain_config")"
+  if [[ -n "$router" && "$router" != "null" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$router"
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$router"
+  fi
+
+  # Entry token path: USDe token + USDC/USDe Uniswap pool used by the deposit calldata
+  usde_addr="$(jq -r '.protocols.pendle.entry_tokens.usde // empty' <<<"$chain_config")"
+  if [[ -n "$usde_addr" && "$usde_addr" != "null" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$usde_addr"
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$usde_addr"
+    best_effort_call "$rpc_url" "$usde_addr" 'totalSupply()(uint256)'
+    best_effort_call "$rpc_url" "$usde_addr" 'decimals()(uint8)'
+  fi
 
   while IFS= read -r market_addr; do
     [[ -z "$market_addr" || "$market_addr" == "null" ]] && continue
@@ -702,6 +718,41 @@ warm_gas_tracking_reads() {
   cast rpc --rpc-url "$rpc_url" eth_maxPriorityFeePerGas >/dev/null 2>&1 || true
 }
 
+warm_chainlink_feeds() {
+  local rpc_url="$1"
+  local chain_id="$2"
+  local chain_name="$3"
+  local chain_config="$4"
+  local proxy aggregator
+
+  while IFS= read -r proxy; do
+    [[ -z "$proxy" || "$proxy" == "null" ]] && continue
+
+    if ! warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$proxy" 2>/dev/null; then
+      printf 'warn: chainlink feed %s has no code on %s, skipping\n' "$proxy" "$chain_name" >&2
+      continue
+    fi
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$proxy"
+
+    # Warm price reads — latestRoundData forces Anvil to cache the aggregator's Transmission
+    # mapping slot; some Aave capped adapters only expose latestAnswer so both are best-effort.
+    best_effort_call "$rpc_url" "$proxy" 'latestRoundData()(uint80,int256,uint256,uint256,uint80)'
+    required_call "$rpc_url" "${chain_name} chainlink latestAnswer ${proxy}" "$proxy" 'latestAnswer()(int256)'
+    best_effort_call "$rpc_url" "$proxy" 'decimals()(uint8)'
+    best_effort_call "$rpc_url" "$proxy" 'description()(string)'
+
+    # Warm the underlying aggregator directly so its code and storage are captured.
+    aggregator="$(cast call --rpc-url "$rpc_url" "$proxy" 'aggregator()(address)' 2>/dev/null || true)"
+    if [[ -n "$aggregator" && "$aggregator" != "0x0000000000000000000000000000000000000000" ]]; then
+      warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$aggregator" || true
+      best_effort_call "$rpc_url" "$aggregator" 'latestRoundData()(uint80,int256,uint256,uint256,uint80)'
+      best_effort_call "$rpc_url" "$aggregator" 'latestAnswer()(int256)'
+    fi
+
+    printf 'warmed chainlink feed %s on %s\n' "$proxy" "$chain_name"
+  done < <(jq -r '.chainlink_feeds[]?' <<<"$chain_config")
+}
+
 warm_sequencer_reads() {
   local rpc_url="$1"
   local chain_id="$2"
@@ -784,6 +835,7 @@ warm_protocol_reads() {
   warm_lido_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_rocketpool_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_eigenlayer_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
+  warm_chainlink_feeds "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_sequencer_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_control_plane_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_gas_tracking_reads "$rpc_url"
