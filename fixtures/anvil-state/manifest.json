@@ -33,12 +33,12 @@
     {
       "chain_id": 8453,
       "chain_name": "base",
-      "fork_block": 47300175,
-      "state_file": "fixtures/anvil-state/base/chain-8453-block-47300175.json",
+      "fork_block": 47306380,
+      "state_file": "fixtures/anvil-state/base/chain-8453-block-47306380.json",
       "source_rpc_env": "BASE_RPC_URL",
-      "sha256": "44543680a174a5aabb81776e5bc6d71a20e52f98d01c7d2f782d362b3a45ccc0",
-      "cache_archive": "fixtures/anvil-state/base/chain-8453-block-47300175-foundry-cache.tar.gz",
-      "cache_sha256": "d520385c454788e80c2538b834f47465b28d8d36a9124bcf85abbe355ead80b9",
+      "sha256": "6f7430de21bcbf08a80560fee5a0ac93ffe657875e265288106047c6f22161f1",
+      "cache_archive": "fixtures/anvil-state/base/chain-8453-block-47306380-foundry-cache.tar.gz",
+      "cache_sha256": "3fa079e7142a61f32a6223676be153a265a80079b4ccb2a67230d1582d903083",
       "anvil_version": "anvil Version: 1.5.1-stable",
       "warmed_protocols": [
         "aave",
@@ -54,18 +54,18 @@
         "0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18",
         "0xA238Dd80C259a72e81d7e4664a9801593F98d1c5"
       ],
-      "full_state_file": "fixtures/anvil-state/base/chain-8453-block-47300175-full.json",
-      "full_state_sha256": "ca1bdd65661b54e7ef79cb4a24adb634976669deb643c2815a6d65756f4ebc45"
+      "full_state_file": "fixtures/anvil-state/base/chain-8453-block-47306380-full.json",
+      "full_state_sha256": "b8492196becd8119f04e517e2ead395f4f240823357e5d2ad174d516be764c83"
     },
     {
       "chain_id": 42161,
       "chain_name": "arbitrum",
-      "fork_block": 473206621,
-      "state_file": "fixtures/anvil-state/arbitrum/chain-42161-block-473206621.json",
+      "fork_block": 473254196,
+      "state_file": "fixtures/anvil-state/arbitrum/chain-42161-block-473254196.json",
       "source_rpc_env": "ARBITRUM_RPC_URL",
-      "sha256": "205b0832b0f098d0286eb19ce0caee222f5e02c7910fc909c4ce8f88843c26c7",
-      "cache_archive": "fixtures/anvil-state/arbitrum/chain-42161-block-473206621-foundry-cache.tar.gz",
-      "cache_sha256": "ea0e9c49556e1287b2245981ccb970ac852d4830d5d6c653dd71b1ea04211b6b",
+      "sha256": "7de713e89a7231edac6cdd25b8b042a72f83384cb462cdfac2b904040921a315",
+      "cache_archive": "fixtures/anvil-state/arbitrum/chain-42161-block-473254196-foundry-cache.tar.gz",
+      "cache_sha256": "30538b0ae48661d938ed737c534877d4b466efc359dd757be39b8c1d90a3a77d",
       "anvil_version": "anvil Version: 1.5.1-stable",
       "warmed_protocols": [
         "aave",
@@ -83,18 +83,18 @@
         "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6",
         "0xb56c2F0B653B2e0b10C9b928C8580Ac5Df02C7C7"
       ],
-      "full_state_file": "fixtures/anvil-state/arbitrum/chain-42161-block-473206621-full.json",
-      "full_state_sha256": "eeb3b74437379677b0f3bb33a14ea95059601fdaf288c4885030f4411ba7d7f7"
+      "full_state_file": "fixtures/anvil-state/arbitrum/chain-42161-block-473254196-full.json",
+      "full_state_sha256": "07a93c6b4468c9cbda3756e904cc6d1d69792fff87324100f38651518854b9e7"
     },
     {
       "chain_id": 10,
       "chain_name": "optimism",
-      "fork_block": 152895604,
-      "state_file": "fixtures/anvil-state/optimism/chain-10-block-152895604.json",
+      "fork_block": 152901704,
+      "state_file": "fixtures/anvil-state/optimism/chain-10-block-152901704.json",
       "source_rpc_env": "OPTIMISM_RPC_URL",
-      "sha256": "a02ff9440fb4e85e97f393fd7602a39cfd722da7b56c7ecaf2f45d9742c00f5d",
-      "cache_archive": "fixtures/anvil-state/optimism/chain-10-block-152895604-foundry-cache.tar.gz",
-      "cache_sha256": "f601d573400974a12dfa731361c43400282492bf87666974bf2b87e36c7fe288",
+      "sha256": "781e3689fb70930175e38df1529e5752e3c0eca6adb9c36a0cead6de377d7721",
+      "cache_archive": "fixtures/anvil-state/optimism/chain-10-block-152901704-foundry-cache.tar.gz",
+      "cache_sha256": "396c4550f7ef479dfc38054cee6d23de00bcf56ee3553e6aacd9ffafef22e4e4",
       "anvil_version": "anvil Version: 1.5.1-stable",
       "warmed_protocols": [
         "aave",
@@ -113,8 +113,8 @@
         "0xD81eb3728a631871a7eBBaD631b5f424909f0c77",
         "0xE592427A0AEce92De3Edee1F18E0157C05861564"
       ],
-      "full_state_file": "fixtures/anvil-state/optimism/chain-10-block-152895604-full.json",
-      "full_state_sha256": "30a1b7a7d89012a1f07f120cb4f695e1fff07a09fc71e331dcaec52cb74286a0"
+      "full_state_file": "fixtures/anvil-state/optimism/chain-10-block-152901704-full.json",
+      "full_state_sha256": "82d0bcd9cfa9f333f8701d302a91073baa892848f61bd9872ce3e2b255c127ea"
     }
   ],
   "exploit_fixtures": [

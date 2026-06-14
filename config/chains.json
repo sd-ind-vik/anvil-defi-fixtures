@@ -85,7 +85,8 @@
             "0x4200000000000000000000000000000000000006",
             "0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA",
             "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-            "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf"
+            "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
+            "0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452"
           ]
         },
         "uniswap": {
@@ -172,7 +173,9 @@
             "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
             "0x4200000000000000000000000000000000000042",
             "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
-            "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85"
+            "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85",
+            "0x1F32b1c2345538c0c6f582fCB022739c4A194Ebb",
+            "0x9Bcef72be871e61ED4fBbc7630889beE758eb81D"
           ]
         },
         "uniswap": {
@@ -196,6 +199,12 @@
         "morpho": {
           "blue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
           "markets": []
+        },
+        "lido": {
+          "wsteth": "0x1F32b1c2345538c0c6f582fCB022739c4A194Ebb"
+        },
+        "rocketpool": {
+          "reth": "0x9Bcef72be871e61ED4fBbc7630889beE758eb81D"
         }
       }
     }

@@ -614,30 +614,34 @@ warm_rocketpool_reads() {
   local chain_config="$4"
 
   local deposit_pool reth storage
-  deposit_pool="$(jq -r '.protocols.rocketpool.deposit_pool // empty' <<<"$chain_config")"
-  [[ -z "$deposit_pool" ]] && return 0
-
   reth="$(jq -r '.protocols.rocketpool.reth // empty' <<<"$chain_config")"
-  storage="$(jq -r '.protocols.rocketpool.storage // empty' <<<"$chain_config")"
+  deposit_pool="$(jq -r '.protocols.rocketpool.deposit_pool // empty' <<<"$chain_config")"
 
-  # RocketStorage — central registry, looked up by all RP contracts at runtime
-  if [[ -n "$storage" ]]; then
-    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$storage" || return 0
-    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$storage"
-  fi
+  # Skip chains with no rocketpool config
+  [[ -z "$reth" && -z "$deposit_pool" ]] && return 0
 
-  # rETH token — exchange rate drives APY calculation
+  # rETH token — present on both mainnet and L2 bridge deployments.
+  # L2 bridge rETH is a plain ERC-20; mainnet rETH has exchange rate functions.
   if [[ -n "$reth" ]]; then
-    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$reth"
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$reth" 2>/dev/null || true
     warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$reth"
-    best_effort_call "$rpc_url" "$reth" 'getExchangeRate()(uint256)'
     best_effort_call "$rpc_url" "$reth" 'totalSupply()(uint256)'
+    # Mainnet-only functions (best_effort silently skips on L2 bridge tokens)
+    best_effort_call "$rpc_url" "$reth" 'getExchangeRate()(uint256)'
     best_effort_call "$rpc_url" "$reth" 'totalCollateral()(uint256)'
     best_effort_call "$rpc_url" "$reth" 'getEthValue(uint256)(uint256)' 1000000000000000000
     best_effort_call "$rpc_url" "$reth" 'getRethValue(uint256)(uint256)' 1000000000000000000
   fi
 
-  # RocketDepositPool — entry point for ETH deposits
+  # Mainnet-only: RocketStorage registry and deposit pool
+  [[ -z "$deposit_pool" ]] && return 0
+
+  storage="$(jq -r '.protocols.rocketpool.storage // empty' <<<"$chain_config")"
+  if [[ -n "$storage" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$storage" || true
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$storage"
+  fi
+
   warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$deposit_pool"
   warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$deposit_pool"
   best_effort_call "$rpc_url" "$deposit_pool" 'getBalance()(uint256)'
