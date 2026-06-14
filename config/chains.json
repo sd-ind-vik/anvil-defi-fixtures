@@ -18,7 +18,10 @@
             "0xdAC17F958D2ee523a2206206994597C13D831ec7",
             "0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf",
             "0x514910771AF9Ca656af840dff83E8264EcF986CA",
-            "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9"
+            "0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9",
+            "0x4c9EDD5852cd905f086C759E8383e09bff1E68B3",
+            "0x9D39A5DE30e57443BfF2A8307A4256c8797A3497",
+            "0x83F20F44975D03b1b09e64809B757c47f942BEeA"
           ]
         },
         "uniswap": {
@@ -33,6 +36,23 @@
             "0x5777d92f208679DB4b9778590Fa3CAB3aC9e2168"
           ],
           "quoter": "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"
+        },
+        "compound": {
+          "comets": [
+            "0xc3d688B66703497DAA19211EEdff47f25384cdc3"
+          ]
+        },
+        "morpho": {
+          "blue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+          "markets": [
+            "0xb323495f7e4148be5643a4ea4a8221eef163e4bccfdedc2a6f4696baacbc86cc"
+          ]
+        },
+        "pendle": {
+          "oracle": "0x9a9Fa8338dd5E5B2188006f1Cd2Ef26d921650C2",
+          "markets": [
+            "0x90b70c407f1077f8eb92bf423b44cd92329b737a"
+          ]
         }
       }
     },
@@ -63,6 +83,15 @@
             "0x4C36388bE6F416A29C8d8Eee81C771cE6bE14B18"
           ],
           "quoter": "0x3d4e44Eb1374240CE5F1B871ab261CD16335B76a"
+        },
+        "compound": {
+          "comets": [
+            "0x46e6b214b524310239732D51387075E0e70970bf"
+          ]
+        },
+        "morpho": {
+          "blue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+          "markets": []
         }
       }
     },
@@ -94,6 +123,19 @@
             "0xC31E54c7a869B9FcBEcc14363CF510d1c41FA443"
           ],
           "quoter": "0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6"
+        },
+        "compound": {
+          "comets": [
+            "0xA5EDBDD9646f8dFF606d7448e414884C7d905dCA"
+          ]
+        },
+        "morpho": {
+          "blue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+          "markets": []
+        },
+        "pendle": {
+          "oracle": "0x9a9Fa8338dd5E5B2188006f1Cd2Ef26d921650C2",
+          "markets": []
         }
       }
     },
@@ -126,6 +168,15 @@
             "0x85149247691df622eaF1a8Bd0CaFd40BC45154a9"
           ],
           "quoter": "0x61fFE014bA17989E743c5F6cB21bF9697530B21e"
+        },
+        "compound": {
+          "comets": [
+            "0x2e44e174f7D53F0212823acC11C01A11d58c5bCB"
+          ]
+        },
+        "morpho": {
+          "blue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+          "markets": []
         }
       }
     }

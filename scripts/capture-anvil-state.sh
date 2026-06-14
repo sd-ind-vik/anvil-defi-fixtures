@@ -140,6 +140,48 @@ address_from_storage_word() {
   printf '%s' "$address"
 }
 
+warm_implementation_libraries() {
+  local rpc_url="$1"
+  local chain_id="$2"
+  local chain_name="$3"
+  local implementation="$4"
+  local code library
+
+  code="$(cast code --rpc-url "$rpc_url" "$implementation" 2>/dev/null || true)"
+  [[ -z "$code" || "$code" == "0x" ]] && return 0
+
+  while IFS= read -r library; do
+    [[ -z "$library" ]] && continue
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$library" 2>/dev/null || true
+  done < <(python3 - "$code" <<'PYEOF'
+import sys
+code = sys.argv[1]
+if code.startswith('0x'):
+    code = code[2:]
+zero_addr = '0' * 40
+addrs = set()
+i = 0
+while i < len(code) - 1:
+    try:
+        b = int(code[i:i+2], 16)
+    except ValueError:
+        i += 2
+        continue
+    if b == 0x73:
+        addr = code[i+2:i+42]
+        if len(addr) == 40 and addr != zero_addr:
+            addrs.add('0x' + addr.lower())
+        i += 42
+    elif 0x60 <= b <= 0x7f:
+        i += 2 + (b - 0x5f) * 2
+    else:
+        i += 2
+for addr in sorted(addrs):
+    print(addr)
+PYEOF
+  )
+}
+
 warm_proxy_dependencies() {
   local rpc_url="$1"
   local chain_id="$2"
@@ -155,6 +197,7 @@ warm_proxy_dependencies() {
   implementation="$(address_from_storage_word "$value" 2>/dev/null || true)"
   if [[ -n "$implementation" ]]; then
     warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$implementation" || true
+    warm_implementation_libraries "$rpc_url" "$chain_id" "$chain_name" "$implementation" || true
   fi
 
   value="$(cast storage --rpc-url "$rpc_url" "$contract" "$EIP1967_ADMIN_SLOT" 2>/dev/null || true)"
@@ -216,14 +259,21 @@ warm_erc20_metadata() {
 # Warm Aave V3 aToken / variableDebtToken / stableDebtToken storage slots
 warm_aave_reserve_token() {
   local rpc_url="$1"
-  local token="$2"
+  local chain_id="$2"
+  local chain_name="$3"
+  local token="$4"
+  local incentives_controller
   warm_erc20_metadata "$rpc_url" "$token"
   # scaled supply — different storage slot from totalSupply on debt tokens
   best_effort_call "$rpc_url" "$token" 'scaledTotalSupply()(uint256)'
   # pool and underlying references (immutables — warms bytecode reads)
   best_effort_call "$rpc_url" "$token" 'POOL()(address)'
   best_effort_call "$rpc_url" "$token" 'UNDERLYING_ASSET_ADDRESS()(address)'
-  best_effort_call "$rpc_url" "$token" 'getIncentivesController()(address)'
+  incentives_controller="$(cast call --rpc-url "$rpc_url" "$token" 'getIncentivesController()(address)' 2>/dev/null || true)"
+  if [[ -n "$incentives_controller" && "$incentives_controller" != "0x0000000000000000000000000000000000000000" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$incentives_controller" 2>/dev/null || true
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$incentives_controller"
+  fi
 }
 
 warm_aave_reads() {
@@ -262,7 +312,12 @@ warm_aave_reads() {
     for reserve_token in $(printf '%s\n' "$reserve_data" | grep -Eio '0x[0-9a-fA-F]{40}' | sort -u); do
       warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$reserve_token" || true
       warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$reserve_token"
-      warm_aave_reserve_token "$rpc_url" "$reserve_token"
+      warm_aave_reserve_token "$rpc_url" "$chain_id" "$chain_name" "$reserve_token"
+      # Warm V3.2 interest rate strategy storage (per-asset mapping, not discoverable from bytecode)
+      best_effort_call "$rpc_url" "$reserve_token" \
+        'getInterestRateData(address)(uint32,uint32,uint32,uint32)' "$asset"
+      best_effort_call "$rpc_url" "$reserve_token" \
+        'getInterestRateDataBps(address)(uint32,uint32,uint32,uint32)' "$asset"
     done
     if [[ -n "$data_provider" ]]; then
       required_call "$rpc_url" "${chain_name} Aave getReserveConfigurationData" "$data_provider" \
@@ -434,6 +489,72 @@ PY
   rm -rf "$tmpdir"
 }
 
+warm_compound_reads() {
+  local rpc_url="$1"
+  local chain_id="$2"
+  local chain_name="$3"
+  local chain_config="$4"
+  local comet
+
+  while IFS= read -r comet; do
+    [[ -z "$comet" || "$comet" == "null" ]] && continue
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$comet"
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$comet"
+    best_effort_call "$rpc_url" "$comet" 'getSupplyRate()(uint64)'
+    best_effort_call "$rpc_url" "$comet" 'getBorrowRate()(uint64)'
+    best_effort_call "$rpc_url" "$comet" 'getUtilization()(uint256)'
+    best_effort_call "$rpc_url" "$comet" 'totalSupply()(uint256)'
+    best_effort_call "$rpc_url" "$comet" 'totalBorrow()(uint256)'
+  done < <(jq -r '.protocols.compound.comets[]?' <<<"$chain_config")
+}
+
+warm_morpho_reads() {
+  local rpc_url="$1"
+  local chain_id="$2"
+  local chain_name="$3"
+  local chain_config="$4"
+  local blue market_id
+
+  blue="$(jq -r '.protocols.morpho.blue // empty' <<<"$chain_config")"
+  [[ -z "$blue" ]] && return 0
+
+  warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$blue" || return 0
+  warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$blue"
+
+  while IFS= read -r market_id; do
+    [[ -z "$market_id" || "$market_id" == "null" ]] && continue
+    best_effort_call "$rpc_url" "$blue" \
+      'market(bytes32)(uint128,uint128,uint128,uint128,uint128,uint128)' "$market_id"
+  done < <(jq -r '.protocols.morpho.markets[]?' <<<"$chain_config")
+}
+
+warm_pendle_reads() {
+  local rpc_url="$1"
+  local chain_id="$2"
+  local chain_name="$3"
+  local chain_config="$4"
+  local oracle market_addr
+  local twap_window=900
+
+  oracle="$(jq -r '.protocols.pendle.oracle // empty' <<<"$chain_config")"
+  [[ -z "$oracle" ]] && return 0
+
+  warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$oracle" || return 0
+  warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$oracle"
+
+  while IFS= read -r market_addr; do
+    [[ -z "$market_addr" || "$market_addr" == "null" ]] && continue
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$market_addr"
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$market_addr"
+    best_effort_call "$rpc_url" "$market_addr" 'expiry()(uint256)'
+    best_effort_call "$rpc_url" "$market_addr" 'readTokens()(address,address,address)'
+    best_effort_call "$rpc_url" "$oracle" \
+      'getOracleState(address,uint32)(bool,uint16,bool)' "$market_addr" "$twap_window"
+    best_effort_call "$rpc_url" "$oracle" \
+      'getPtToAssetRate(address,uint32)(uint256)' "$market_addr" "$twap_window"
+  done < <(jq -r '.protocols.pendle.markets[]?' <<<"$chain_config")
+}
+
 warm_gas_tracking_reads() {
   local rpc_url="$1"
   local head depth block
@@ -526,6 +647,9 @@ warm_protocol_reads() {
 
   warm_aave_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_uniswap_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
+  warm_compound_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
+  warm_morpho_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
+  warm_pendle_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_sequencer_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_control_plane_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_gas_tracking_reads "$rpc_url"
