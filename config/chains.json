@@ -52,8 +52,10 @@
         },
         "morpho": {
           "blue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+          "irm": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",
           "markets": [
-            "0xb323495f7e4148be5643a4ea4a8221eef163e4bccfdedc2a6f4696baacbc86cc"
+            "0xb323495f7e4148be5643a4ea4a8221eef163e4bccfdedc2a6f4696baacbc86cc",
+            "0x3a85e619751152991742810df6ec69ce473daef99e28a64ab2340d7b7ccfee49"
           ]
         },
         "pendle": {

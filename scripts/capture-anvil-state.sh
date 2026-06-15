@@ -513,7 +513,7 @@ warm_morpho_reads() {
   local chain_id="$2"
   local chain_name="$3"
   local chain_config="$4"
-  local blue market_id
+  local blue irm market_id
 
   blue="$(jq -r '.protocols.morpho.blue // empty' <<<"$chain_config")"
   [[ -z "$blue" ]] && return 0
@@ -521,10 +521,22 @@ warm_morpho_reads() {
   warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$blue" || return 0
   warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$blue"
 
+  # Warm the AdaptiveCurveIRM — needed for rateAtTarget reads
+  irm="$(jq -r '.protocols.morpho.irm // empty' <<<"$chain_config")"
+  if [[ -n "$irm" && "$irm" != "null" ]]; then
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$irm" || true
+  fi
+
   while IFS= read -r market_id; do
     [[ -z "$market_id" || "$market_id" == "null" ]] && continue
+    # Warm market state (supply/borrow/utilization)
     best_effort_call "$rpc_url" "$blue" \
       'market(bytes32)(uint128,uint128,uint128,uint128,uint128,uint128)' "$market_id"
+    # Warm IRM rateAtTarget for this market (per-second WAD borrow rate)
+    if [[ -n "$irm" && "$irm" != "null" ]]; then
+      best_effort_call "$rpc_url" "$irm" \
+        'rateAtTarget(bytes32)(int256)' "$market_id"
+    fi
   done < <(jq -r '.protocols.morpho.markets[]?' <<<"$chain_config")
 }
 
@@ -753,6 +765,47 @@ warm_chainlink_feeds() {
   done < <(jq -r '.chainlink_feeds[]?' <<<"$chain_config")
 }
 
+warm_spectra_reads() {
+  local rpc_url="$1"
+  local chain_id="$2"
+  local chain_name="$3"
+
+  # Spectra is deployed on Ethereum mainnet (chain 1) only in the current fixture set.
+  # Base support requires a separate address set; skip non-ethereum chains gracefully.
+  [[ "$chain_name" != "ethereum" ]] && return 0
+
+  local SPECTRA_ROUTER="0x2E95189f0a0B79fbd38A39feBD5AFDE10B94Cbc9"
+  local SPECTRA_FACTORY="0x4fC8225B6D5DE92B2E44d7Ef36ae17C6bf68Af4D"
+
+  warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$SPECTRA_ROUTER"  || true
+  warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$SPECTRA_FACTORY" || true
+  best_effort_call "$rpc_url" "$SPECTRA_FACTORY" 'allPrincipalTokensLength()(uint256)'
+  best_effort_call "$rpc_url" "$SPECTRA_ROUTER"  'paused()(bool)'
+
+  # PT and Curve pool addresses: populated once mainnet addresses are confirmed via
+  # factory enumeration. best_effort_call means empty arrays fail silently.
+  local SPECTRA_PT_ADDRS=()
+  local SPECTRA_POOL_ADDRS=()
+  # TODO: populate after running: cast call $SPECTRA_FACTORY 'allPrincipalTokens(uint256,uint256)(address[])' 0 20 --rpc-url <mainnet>
+
+  for i in "${!SPECTRA_PT_ADDRS[@]}"; do
+    local pt="${SPECTRA_PT_ADDRS[$i]}"
+    local pool="${SPECTRA_POOL_ADDRS[$i]}"
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$pt"   || true
+    warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$pool" || true
+    warm_proxy_dependencies "$rpc_url" "$chain_id" "$chain_name" "$pt"
+    best_effort_call "$rpc_url" "$pt"   'maturity()(uint256)'
+    best_effort_call "$rpc_url" "$pt"   'asset()(address)'
+    best_effort_call "$rpc_url" "$pt"   'previewDeposit(uint256)(uint256)' 1000000000000000000
+    best_effort_call "$rpc_url" "$pt"   'previewRedeem(uint256)(uint256)'  1000000000000000000
+    best_effort_call "$rpc_url" "$pool" 'price_oracle()(uint256)'
+    best_effort_call "$rpc_url" "$pool" 'get_dy(int128,int128,uint256)(uint256)' 0 1 1000000000000000000
+    best_effort_call "$rpc_url" "$pool" 'coins(uint256)(address)' 0
+    best_effort_call "$rpc_url" "$pool" 'coins(uint256)(address)' 1
+    printf 'warmed spectra PT %s / pool %s on %s\n' "$pt" "$pool" "$chain_name"
+  done
+}
+
 warm_sequencer_reads() {
   local rpc_url="$1"
   local chain_id="$2"
@@ -836,6 +889,7 @@ warm_protocol_reads() {
   warm_rocketpool_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_eigenlayer_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_chainlink_feeds "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
+  warm_spectra_reads   "$rpc_url" "$chain_id" "$chain_name"
   warm_sequencer_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_control_plane_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_gas_tracking_reads "$rpc_url"
