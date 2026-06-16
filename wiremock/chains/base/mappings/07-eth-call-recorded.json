@@ -1,0 +1,2890 @@
+{
+  "mappings": [
+    {
+      "id": "b7be436f-f614-459b-9aef-39fb6dbe008f",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4200000000000000000000000000000000000006"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x313ce567"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000012\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "beedd3a2-a462-4bba-adef-fee1e4d28a6a",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4200000000000000000000000000000000000006"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x95d89b41"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000045745544800000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "02fbac27-9fd4-4319-850e-aa09be96f9c0",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4200000000000000000000000000000000000006"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x06fdde03"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000d5772617070656420457468657200000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "d5b0f591-2b94-4ef9-9361-369b4730faf2",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4200000000000000000000000000000000000006"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x18160ddd"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000003af5d100e7d18e755d70\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "38d83448-3881-4f97-9b18-790d4da511dc",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4200000000000000000000000000000000000006"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x70a08231000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "7b5715bc-9d11-4810-b292-a59fa3c44a22",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xa238dd80c259a72e81d7e4664a9801593f98d1c5"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x35ea6a750000000000000000000000004200000000000000000000000000000000000006"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x100000000000000000000103e8000029428000022e9805dc85122904206c1f40000000000000000000000000000000000000000003616e370f62e5c2d03e06ab0000000000000000000000000000000000000000000ce5fdd4b5c30bd9d3cde4000000000000000000000000000000000000000003775be98fefb5f6150d465900000000000000000000000000000000000000000012ac3705007527111305d10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a309a8d0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000d4a0e0b9149bcee3c920d2e00b5de09138fd8bb7000000000000000000000000aed3b56fea82e809665f02acbcdec0816c75f4d900000000000000000000000024e6e0795b3c7c71d965fcc4f371803d1c1dca1e00000000000000000000000086ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc500000000000000000000000000000000000000000000000010032dd716c5415300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "efe970b2-1e20-496e-bed8-461ffe751833",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x3e1501410000000000000000000000004200000000000000000000000000000000000006"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000001f40000000000000000000000000000000000000000000000000000000000000206c000000000000000000000000000000000000000000000000000000000000290400000000000000000000000000000000000000000000000000000000000005dc00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "77a46a6e-f60f-4274-a080-29c26fb756c1",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x46fbe5580000000000000000000000004200000000000000000000000000000000000006"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000022e980000000000000000000000000000000000000000000000000000000000029428\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "153e417e-44ee-4885-9e3b-812c477f57fd",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xd2493b6c0000000000000000000000004200000000000000000000000000000000000006"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000d4a0e0b9149bcee3c920d2e00b5de09138fd8bb7000000000000000000000000000000000000000000000000000000000000000000000000000000000000000024e6e0795b3c7c71d965fcc4f371803d1c1dca1e\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "eb208a2a-9eea-4a3b-a303-462cdeaa44a9",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x2cc0fc26ed4563a5ce5e8bdcfe1a2878676ae156"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xb3596f070000000000000000000000004200000000000000000000000000000000000006"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000029c0b8ddc0\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "85035dba-5518-48ef-9bb7-57d8d1d005a5",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x313ce567"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000006\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "0ed55c28-6961-41bd-af64-6fc72384db2b",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x95d89b41"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000055553446243000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5d766d5e-8145-435e-8a1d-a8397c578b1d",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x06fdde03"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000d555344204261736520436f696e00000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "256508dc-b17d-42fa-bb23-2e907148e4eb",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x18160ddd"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000005d938623bb6\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "237db8cc-98d8-436d-a1c8-da7714bb268b",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xd9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x70a08231000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "4277867b-02a2-4697-b7b9-441f34c9c0b6",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xa238dd80c259a72e81d7e4664a9801593f98d1c5"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x35ea6a75000000000000000000000000d9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x100000000000000000000003e800007a12000006ddd01388810629041e780000000000000000000000000000000000000000000003a6366d4a8b7ce507a0b4c70000000000000000000000000000000000000000001f7aedc32caa6ab72e286e0000000000000000000000000000000000000000041d15b428b961230184fa0a0000000000000000000000000000000000000000004c129fdcf5178aa958381c0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a30705500000000000000000000000000000000000000000000000000000000000000020000000000000000000000000a1d576f3efef75b330424287a95a366e8281d54000000000000000000000000aed3b56fea82e809665f02acbcdec0816c75f4d90000000000000000000000007376b2f323dc56fcd4c191b34163ac8a84702dab00000000000000000000000086ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc500000000000000000000000000000000000000000000000000000000016b57b800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "119a5053-c850-44ef-8634-c3138bcd5ed1",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x3e150141000000000000000000000000d9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001e780000000000000000000000000000000000000000000000000000000000002904000000000000000000000000000000000000000000000000000000000000138800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5f069f13-4a39-433d-bfa7-f04b4bac509b",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x46fbe558000000000000000000000000d9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000000006ddd0000000000000000000000000000000000000000000000000000000000007a120\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5b875543-4d49-4142-a7b7-bf5abfa37428",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xd2493b6c000000000000000000000000d9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000a1d576f3efef75b330424287a95a366e8281d5400000000000000000000000000000000000000000000000000000000000000000000000000000000000000007376b2f323dc56fcd4c191b34163ac8a84702dab\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "a2f5f0e5-7c1e-4076-a853-041fc0390a60",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x2cc0fc26ed4563a5ce5e8bdcfe1a2878676ae156"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xb3596f07000000000000000000000000d9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000005f56f12\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "40d38701-a19d-4eaf-85a3-9f59ae49bc8c",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x313ce567"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000006\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "399f724b-1f1b-41d8-a737-16edabe1d550",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x95d89b41"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000045553444300000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "2c6c02ed-1b30-48fe-a535-ab8c4b9f08bb",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x06fdde03"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000855534420436f696e000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "b2a9f056-9537-45fb-ac00-c422e383e55e",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x18160ddd"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000f1fc1b069d94c\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5a192a85-d6ab-412a-8440-d7f2bef5cac3",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x70a08231000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "4c8d3a7d-c21c-49e1-9b41-e2cb5aa69c90",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xa238dd80c259a72e81d7e4664a9801593f98d1c5"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x35ea6a75000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x100000000000000000000003e800db5858000c5691c003e8850629041e781d4c000000000000000000000000000000000000000003abe1984c3e2f2bd148619e0000000000000000000000000000000000000000001a6c97da11a4df699c10f5000000000000000000000000000000000000000003d83c8f90de358e2880cfb600000000000000000000000000000000000000000022d8d1f47888bd7a93a2cb0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a309ab900000000000000000000000000000000000000000000000000000000000000040000000000000000000000004e65fe4dba92790696d040ac24aa414708f5c0ab000000000000000000000000aed3b56fea82e809665f02acbcdec0816c75f4d900000000000000000000000059dca05b6c26dbd64b5381374aaac5cd05644c2800000000000000000000000086ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc5000000000000000000000000000000000000000000000000000000009fb6a36600000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "053df225-8668-41b6-84cf-67a80f70153e",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x3e150141000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000000000000060000000000000000000000000000000000000000000000000000000000001d4c0000000000000000000000000000000000000000000000000000000000001e78000000000000000000000000000000000000000000000000000000000000290400000000000000000000000000000000000000000000000000000000000003e800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "4818f3f1-300e-4f06-ae9f-cafaa96ce2cc",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x46fbe558000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000000c5691c0000000000000000000000000000000000000000000000000000000000db58580\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "d86419d7-898a-4c93-b532-d02996b97ee3",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xd2493b6c000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000004e65fe4dba92790696d040ac24aa414708f5c0ab000000000000000000000000000000000000000000000000000000000000000000000000000000000000000059dca05b6c26dbd64b5381374aaac5cd05644c28\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "7ccdeceb-db1c-4d91-bad5-95d132ae9fcb",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x2cc0fc26ed4563a5ce5e8bdcfe1a2878676ae156"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xb3596f07000000000000000000000000833589fcd6edb6e08f4c7c32d4f71b54bda02913"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000005f56f12\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "6f5e1d4f-8d82-412a-b22c-77c6a0fe185c",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x313ce567"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000008\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "0f84ab58-1fec-488d-b565-2f12489d2211",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x95d89b41"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000056362425443000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "f61af54a-b3da-4a41-8d33-11312378b1d4",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x06fdde03"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000014436f696e62617365205772617070656420425443000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "a13289d5-188d-433f-8097-8d6e295fe219",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x18160ddd"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000003b7b7420053\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "a2baaa0e-5357-402d-ba2f-18cfce833094",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x70a08231000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "58c63279-8b05-49dc-a573-6b7822bf8824",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xa238dd80c259a72e81d7e4664a9801593f98d1c5"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x35ea6a75000000000000000000000000cbb7c0000ab88b473b1f5afd9ef808440eed33bf"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x100000000000000000000003e8000000c8000000017c1388850829fe1e781c840000000000000000000000000000000000000000033cd4b6f68eec4e5815e76900000000000000000000000000000000000000000000261876d3b82bbc937560000000000000000000000000000000000000000003493913821df76afbed719c0000000000000000000000000000000000000000000623f8b75ec29e886fc4700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a3099290000000000000000000000000000000000000000000000000000000000000006000000000000000000000000bdb9300b7cde636d9cd4aff00f6f009ffbbc8ee6000000000000000000000000aed3b56fea82e809665f02acbcdec0816c75f4d900000000000000000000000005e08702028de6aad395dc6478b554a56920b9ad00000000000000000000000086ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc50000000000000000000000000000000000000000000000000000000000033f8300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "18521ea8-f44d-4687-89c3-577983771682",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x3e150141000000000000000000000000cbb7c0000ab88b473b1f5afd9ef808440eed33bf"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000000000000080000000000000000000000000000000000000000000000000000000000001c840000000000000000000000000000000000000000000000000000000000001e7800000000000000000000000000000000000000000000000000000000000029fe000000000000000000000000000000000000000000000000000000000000138800000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "32dae04c-3349-4498-a2c9-19f31dc2d27d",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x46fbe558000000000000000000000000cbb7c0000ab88b473b1f5afd9ef808440eed33bf"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000000000017c0000000000000000000000000000000000000000000000000000000000000c80\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "6f454e67-612a-4cb8-9542-517e8d82a7cb",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xd2493b6c000000000000000000000000cbb7c0000ab88b473b1f5afd9ef808440eed33bf"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000bdb9300b7cde636d9cd4aff00f6f009ffbbc8ee6000000000000000000000000000000000000000000000000000000000000000000000000000000000000000005e08702028de6aad395dc6478b554a56920b9ad\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "6cab9cb0-9fd8-4d8f-8d79-a8593e8d62b7",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x2cc0fc26ed4563a5ce5e8bdcfe1a2878676ae156"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xb3596f07000000000000000000000000cbb7c0000ab88b473b1f5afd9ef808440eed33bf"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000607ab088500\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "28d2c414-19d3-41e5-a836-e85a86841286",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x313ce567"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000012\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "022c3dbf-7e51-4771-a40f-ff6e88f20e10",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x95d89b41"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000067773744554480000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "b3b76187-2a1b-498c-a2d0-47b827bcf651",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x06fdde03"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001f57726170706564206c6971756964207374616b656420457468657220322e3000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "13b7b184-701f-43dc-9a28-3acc51685e8f",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x18160ddd"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000007008448f354c9b0e6ac\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "56827205-8dbf-48b8-8082-b12662964c05",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x70a08231000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "c7815d57-05a2-4cb8-94c2-7baef3711ece",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xa238dd80c259a72e81d7e4664a9801593f98d1c5"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x35ea6a75000000000000000000000000c1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x100000000000000000000103e80000061a80000004b001f4811229681edc1d4c0000000000000000000000000000000000000000033db4e07ac5996cde6430740000000000000000000000000000000000000000000000ddc143a8cd858ed89c0000000000000000000000000000000000000000034893ab2d9275025cfa1c5e000000000000000000000000000000000000000000002259c4fd5632da60783a0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000006a309841000000000000000000000000000000000000000000000000000000000000000300000000000000000000000099cbc45ea5bb7ef3a5bc08fb1b7e56bb2442ef0d000000000000000000000000aed3b56fea82e809665f02acbcdec0816c75f4d900000000000000000000000041a7c3f5904ad176dacbb1d99101f59ef0811dc100000000000000000000000086ab1c62a8bf868e1b3e1ab87d587aba6fbcbdc500000000000000000000000000000000000000000000000000000cf57d7eeeba00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "d9edc671-4fae-444b-b17c-fb0808e390a9",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x3e150141000000000000000000000000c1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000001d4c0000000000000000000000000000000000000000000000000000000000001edc000000000000000000000000000000000000000000000000000000000000296800000000000000000000000000000000000000000000000000000000000001f400000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "4c7512ff-fd49-4ac8-88b4-7a91a3bc3b5d",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x46fbe558000000000000000000000000c1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000000000004b000000000000000000000000000000000000000000000000000000000000061a8\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "0b280602-69c8-451d-89fa-84206482178f",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x0f43731eb8d45a581f4a36dd74f5f358bc90c73a"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xd2493b6c000000000000000000000000c1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000099cbc45ea5bb7ef3a5bc08fb1b7e56bb2442ef0d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000041a7c3f5904ad176dacbb1d99101f59ef0811dc1\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "e3229720-d6ed-48f5-8aef-58ad8fe74ee9",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x2cc0fc26ed4563a5ce5e8bdcfe1a2878676ae156"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xb3596f07000000000000000000000000c1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000033a623c424\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "aac2d35f-d5f8-40ac-937c-33f423882205",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xa238dd80c259a72e81d7e4664a9801593f98d1c5"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xbf92857c000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "21ffc8eb-6178-4a88-a2c1-98309269627d",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4c36388be6f416a29c8d8eee81c771ce6be14b18"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x3850c7bd"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000002c69956ac412e89483907fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffced490000000000000000000000000000000000000000000000000000000000000ffe0000000000000000000000000000000000000000000000000000000000001388000000000000000000000000000000000000000000000000000000000000138800000000000000000000000000000000000000000000000000000000000000440000000000000000000000000000000000000000000000000000000000000001\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "7c357916-26c3-480f-a3ba-4ad1901ebceb",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4c36388be6f416a29c8d8eee81c771ce6be14b18"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x1a686502"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000080ab9db2138f2\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "481a5345-c098-4061-a668-a95323e77b64",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4c36388be6f416a29c8d8eee81c771ce6be14b18"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x0dfe1681"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000004200000000000000000000000000000000000006\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "46b60dc5-a1d9-4afd-8991-ecc3aa9c7f56",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4c36388be6f416a29c8d8eee81c771ce6be14b18"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xd21220a7"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000d9aaec86b65d86f6a7b5b1b0c42ffa531710b6ca\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "3eaf6e43-e236-4fe3-a6f7-0787761ea9e0",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4c36388be6f416a29c8d8eee81c771ce6be14b18"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x883bdbfd00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000012c0000000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000000000000002ffffffffffffffffffffffffffffffffffffffffffffffffffffefbc03be3c8affffffffffffffffffffffffffffffffffffffffffffffffffffefbc00244e2000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000021b4c815dfaba80a9821c9698a0000000000000000000000000000000000000021b4ed2abb4f4f7f9acea2740a\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "00d952df-46f9-4fa8-b7eb-0990be2f6acc",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4c36388be6f416a29c8d8eee81c771ce6be14b18"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x252c09d70000000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000006a2ccbefffffffffffffffffffffffffffffffffffffffffffffffffffffefc7bbba197a00000000000000000000000000000000000000213e832fac81ad3afb650eee820000000000000000000000000000000000000000000000000000000000000001\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "b4d4c2a4-5d4e-46cc-b1fa-5c6429d968f4",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x4c36388be6f416a29c8d8eee81c771ce6be14b18"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x252c09d70000000000000000000000000000000000000000000000000000000000000001"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000000000006a2ccbf1ffffffffffffffffffffffffffffffffffffffffffffffffffffefc7bbb3ee5a00000000000000000000000000000000000000213e835724e201e3cba456021d0000000000000000000000000000000000000000000000000000000000000001\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "7f7395d1-1bf3-422a-8d38-6aa92e488bf1",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x46e6b214b524310239732d51387075e0e70970bf"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x7eb71131"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000c606720da608d76\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "3bd4c158-9adb-4557-a8cf-d0ca03f78cfe",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x46e6b214b524310239732d51387075e0e70970bf"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x18160ddd"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000006301e4c055758f6230\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "f2d7667a-9e34-4505-9120-3851ae405bbb",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x46e6b214b524310239732d51387075e0e70970bf"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x8285ef40"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000584c213e1afaf665f9\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "9ab0fa17-aebc-4dbf-90db-54a13588fafc",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x9da00d23465282005db222a441a663ee7b9dfcc8"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xfeaf968c"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000002000000000000f9d800000000000000000000000000000000000000000000000000000029c0b8ddc0000000000000000000000000000000000000000000000000000000006a309700000000000000000000000000000000000000000000000000000000006a30970f000000000000000000000000000000000000000000000002000000000000f9d8\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "d44556ae-fc54-43e8-bed9-5c3dcfb6ac26",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x9da00d23465282005db222a441a663ee7b9dfcc8"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x50d25bcd"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000029c0b8ddc0\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "f1144e5d-b769-49b7-ab48-864559e736e6",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x9da00d23465282005db222a441a663ee7b9dfcc8"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x313ce567"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000008\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "edc972f9-d2cd-4378-927d-a94444977d78",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x9da00d23465282005db222a441a663ee7b9dfcc8"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x7284e416"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000009455448202f205553440000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "1eb677b6-af54-448c-aa13-33e81abf5129",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x9da00d23465282005db222a441a663ee7b9dfcc8"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x245a7bfc"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000d772f6d9b7a35cb96fddfe569964ab1c05017bf9\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "0d100281-2669-482a-b44d-2921415393b7",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xf52d010c7d4ecbfda92c2509900593ce34535d86"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x50d25bcd"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000005f56f12\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "f8adab5a-4dfe-4a01-9571-73e937bfe761",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xf52d010c7d4ecbfda92c2509900593ce34535d86"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x313ce567"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000008\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "d40c6a25-7315-40b9-982a-5d2911a1b0ee",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xf52d010c7d4ecbfda92c2509900593ce34535d86"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x7284e416"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000f43617070656420555344432f5553440000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "9a35ded4-cdb2-43e2-9371-f89cf893ea0b",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x3a932b286715abc4a86a4acaf68a6cdd89e0d446"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0xfeaf968c"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000020000000000011ac400000000000000000000000000000000000000000000000000000607ab088500000000000000000000000000000000000000000000000000000000006a309998000000000000000000000000000000000000000000000000000000006a3099a70000000000000000000000000000000000000000000000020000000000011ac4\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "e9a4e97c-5aa4-4a13-b332-dbb4ab4c6e50",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x3a932b286715abc4a86a4acaf68a6cdd89e0d446"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x50d25bcd"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000607ab088500\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "4b7e4de1-e68d-4654-b523-35bba53bb7e7",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x3a932b286715abc4a86a4acaf68a6cdd89e0d446"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x313ce567"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000008\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "54e4f18c-c995-41a2-8c3f-458317dd6368",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x3a932b286715abc4a86a4acaf68a6cdd89e0d446"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x7284e416"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000009425443202f205553440000000000000000000000000000000000000000000000\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "f3dd7ba1-c8e5-4274-959e-627c642a5cf0",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x3a932b286715abc4a86a4acaf68a6cdd89e0d446"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x245a7bfc"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000137233996b6586a110bb7a753248e26cc0307b1b\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "a0c74ceb-5dd2-4428-a7d1-08df233ff20c",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x1afc5010fb182b6e62d6a3b522f09f644fb62efd"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x50d25bcd"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x00000000000000000000000000000000000000000000000000000033a623c424\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "3b1a1e10-38e2-48b6-bd2f-754ddfac7d3e",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x1afc5010fb182b6e62d6a3b522f09f644fb62efd"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x313ce567"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000008\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5ea6381a-1eb5-4eb7-8f83-934792abe2ba",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0x1afc5010fb182b6e62d6a3b522f09f644fb62efd"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x7284e416"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000002043617070656420777374455448202f2073744554482845544829202f20555344\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "7f5c55b4-efe1-49b3-82df-76555215a6ca",
+      "priority": 2,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].to",
+              "equalTo": "0xca11bde05977b3631167028862be2a173976ca11"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0].data",
+              "equalTo": "0x4d2301cc0000000000000000000000000000000000000000000000000000000000000000"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x000000000000000000000000000000000000000000000000c4a1224ad2e5cbf6\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    }
+  ]
+}
