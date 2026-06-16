@@ -1,0 +1,379 @@
+{
+  "mappings": [
+    {
+      "id": "12fd683c-1920-4056-87d3-25e775fdab64",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_chainId"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0xa\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "22b997e9-79ab-426e-b633-7a85bf4b4279",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "net_version"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"10\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "38e92246-e784-4309-8f43-5ddd89566726",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "net_listening"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":true}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "024d71df-fc57-44c1-bbb4-a7febd9c0947",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_syncing"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":false}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "774c8e3d-111e-42ac-b10e-24999e6e0e90",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_gasPrice"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x140\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "47b30de6-f031-4750-a747-71d51aced67c",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_maxPriorityFeePerGas"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x3b9aca00\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "6f01dab0-d69b-40d9-bde2-7956a46cc180",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_estimateGas"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x5208\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "f8f94638-77c9-4609-9ac1-97418d547738",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBalance"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "3d836940-1a5f-49e7-b806-bffda68411bb",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getTransactionCount"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "55b71fef-d562-48a0-a763-0c0767b52834",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getTransactionReceipt"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":null}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "20193007-549a-463b-8455-ccdd2efc969b",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getTransactionByHash"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":null}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5a74eb7b-97d8-4aa6-8be6-957303ff955e",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "evm_snapshot"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x1\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "df2bf608-ee7a-439b-8551-b0578a8dca2e",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "evm_revert"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":true}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "60a997ad-bc0e-40c8-a2f3-8b9c48bdab93",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "evm_setNextBlockTimestamp"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":null}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "150dbcaa-b868-4482-aa90-ef1c83424961",
+      "priority": 5,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_feeHistory"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"oldestBlock\": \"0x91da95b\", \"baseFeePerGas\": [\"0x123\", \"0x123\"], \"gasUsedRatio\": [0.0], \"reward\": [[\"0x0\"]]}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    }
+  ]
+}

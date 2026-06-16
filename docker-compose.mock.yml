@@ -1,0 +1,88 @@
+services:
+  mockrpc-ethereum:
+    build:
+      context: wiremock
+      dockerfile: Dockerfile
+    image: anvil-defi-mockrpc:latest
+    environment:
+      CHAIN_NAME: ethereum
+      RPC_HOST: "0.0.0.0"
+      RPC_PORT: "8545"
+      WIREMOCK_PORT: "8080"
+    volumes:
+      - ./wiremock/chains:/app/chains:ro
+    ports:
+      - "${MOCKRPC_ETHEREUM_PORT:-9545}:8545"
+    healthcheck:
+      test: ["CMD", "python3", "-c",
+             "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8545/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+      start_period: 15s
+
+  mockrpc-base:
+    build:
+      context: wiremock
+      dockerfile: Dockerfile
+    image: anvil-defi-mockrpc:latest
+    environment:
+      CHAIN_NAME: base
+      RPC_HOST: "0.0.0.0"
+      RPC_PORT: "8545"
+      WIREMOCK_PORT: "8080"
+    volumes:
+      - ./wiremock/chains:/app/chains:ro
+    ports:
+      - "${MOCKRPC_BASE_PORT:-9546}:8545"
+    healthcheck:
+      test: ["CMD", "python3", "-c",
+             "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8545/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+      start_period: 15s
+
+  mockrpc-arbitrum:
+    build:
+      context: wiremock
+      dockerfile: Dockerfile
+    image: anvil-defi-mockrpc:latest
+    environment:
+      CHAIN_NAME: arbitrum
+      RPC_HOST: "0.0.0.0"
+      RPC_PORT: "8545"
+      WIREMOCK_PORT: "8080"
+    volumes:
+      - ./wiremock/chains:/app/chains:ro
+    ports:
+      - "${MOCKRPC_ARBITRUM_PORT:-9547}:8545"
+    healthcheck:
+      test: ["CMD", "python3", "-c",
+             "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8545/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+      start_period: 15s
+
+  mockrpc-optimism:
+    build:
+      context: wiremock
+      dockerfile: Dockerfile
+    image: anvil-defi-mockrpc:latest
+    environment:
+      CHAIN_NAME: optimism
+      RPC_HOST: "0.0.0.0"
+      RPC_PORT: "8545"
+      WIREMOCK_PORT: "8080"
+    volumes:
+      - ./wiremock/chains:/app/chains:ro
+    ports:
+      - "${MOCKRPC_OPTIMISM_PORT:-9548}:8545"
+    healthcheck:
+      test: ["CMD", "python3", "-c",
+             "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8545/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+      start_period: 15s

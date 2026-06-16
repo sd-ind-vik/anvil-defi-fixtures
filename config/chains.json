@@ -50,6 +50,11 @@
             "0xc3d688B66703497DAA19211EEdff47f25384cdc3"
           ]
         },
+        "sky": {
+          "susds":    "0xa3931d71877C0E7a3148CB7Eb4463524FEc27fbD",
+          "usds":     "0xdC035D45d973E3EC169d2276DDab16f1e407384F",
+          "lite_psm": "0xf6e72Db5454dd049d0788e411b06CfAF16853042"
+        },
         "morpho": {
           "blue": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
           "irm": "0x870aC11D48B15DB9a138Cf899d20F13F79Ba00BC",

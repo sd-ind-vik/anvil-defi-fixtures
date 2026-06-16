@@ -1,0 +1,29 @@
+{
+  "mappings": [
+    {
+      "id": "cde099b5-4d38-4bb2-ac3d-d51daaed1c26",
+      "priority": 10,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_call"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    }
+  ]
+}

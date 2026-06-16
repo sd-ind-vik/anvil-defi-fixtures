@@ -1,0 +1,2715 @@
+{
+  "mappings": [
+    {
+      "id": "a7498785-12a7-447c-9947-d2eb48d7ebd9",
+      "priority": 4,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_blockNumber"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x91da95b\"}",
+        "transformers": [
+          "response-template"
+        ]
+      },
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "Started"
+    },
+    {
+      "id": "66dba578-6de9-4cab-a168-e0630898162c",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "Started",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "latest"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95b\", \"hash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"parentHash\": \"0x0f4751db091ae9c244b87685323a2fe75958a2dc35f09199b66f62353223727e\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "ef484c3f-ab0d-47e4-8e4c-94ffa9209f6b",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "Started",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "pending"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95b\", \"hash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"parentHash\": \"0x0f4751db091ae9c244b87685323a2fe75958a2dc35f09199b66f62353223727e\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "c798cee3-f16d-4ee9-985e-7b0928fe8ef4",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "Started",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "safe"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95b\", \"hash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"parentHash\": \"0x0f4751db091ae9c244b87685323a2fe75958a2dc35f09199b66f62353223727e\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "2be6bf0c-6f95-44f8-ad65-f5b8757e4c5d",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "Started",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "finalized"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95b\", \"hash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"parentHash\": \"0x0f4751db091ae9c244b87685323a2fe75958a2dc35f09199b66f62353223727e\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "ce6dacc2-c9dd-47ba-a753-ec0df5e4c320",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x91da95b"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95b\", \"hash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"parentHash\": \"0x0f4751db091ae9c244b87685323a2fe75958a2dc35f09199b66f62353223727e\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "2c97b60f-41a6-48a1-b7d4-6eb0d48ffeea",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByHash"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95b\", \"hash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"parentHash\": \"0x0f4751db091ae9c244b87685323a2fe75958a2dc35f09199b66f62353223727e\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "1c5246a1-fa85-4acb-82e2-974582293204",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "Started",
+      "newScenarioState": "block-1",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "matches": "evm_mine|hardhat_mine|anvil_mine"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "74c5fd5f-0e7f-47b3-8b3b-8e1c084c57a1",
+      "priority": 4,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_blockNumber"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x91da95c\"}",
+        "transformers": [
+          "response-template"
+        ]
+      },
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-1"
+    },
+    {
+      "id": "5fa33a01-f013-4a42-861e-bc6700e637ae",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-1",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "latest"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95c\", \"hash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"parentHash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"totalDifficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ca6\", \"baseFeePerGas\": \"0x14c\", \"mixHash\": \"0x9caab2d27b9a3beb8a6dceba85b0f941494c02a1155e84afa4468a80e22e9d34\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5cfec476-5ba5-41c7-9b60-98b5c236312e",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-1",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "pending"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95c\", \"hash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"parentHash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"totalDifficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ca6\", \"baseFeePerGas\": \"0x14c\", \"mixHash\": \"0x9caab2d27b9a3beb8a6dceba85b0f941494c02a1155e84afa4468a80e22e9d34\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "4af4d071-726c-452f-bd9d-18a23d7c5536",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-1",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "safe"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95c\", \"hash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"parentHash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"totalDifficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ca6\", \"baseFeePerGas\": \"0x14c\", \"mixHash\": \"0x9caab2d27b9a3beb8a6dceba85b0f941494c02a1155e84afa4468a80e22e9d34\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "9849a1e6-bdd3-4568-8bea-1d1e2748c609",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-1",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "finalized"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95c\", \"hash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"parentHash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"totalDifficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ca6\", \"baseFeePerGas\": \"0x14c\", \"mixHash\": \"0x9caab2d27b9a3beb8a6dceba85b0f941494c02a1155e84afa4468a80e22e9d34\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "207f91b2-64bd-4719-9e85-a3910a4f2efc",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x91da95c"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95c\", \"hash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"parentHash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"totalDifficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ca6\", \"baseFeePerGas\": \"0x14c\", \"mixHash\": \"0x9caab2d27b9a3beb8a6dceba85b0f941494c02a1155e84afa4468a80e22e9d34\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "eeb26d66-c1eb-49f0-85e7-0b5d3f00fc3d",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByHash"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95c\", \"hash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"parentHash\": \"0xc4cfab283bd6a943f1dbbe6725a51d7141143e4d24f3c8d1b504a0773be76074\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"totalDifficulty\": \"0xc04bb0abaf0eb52e87956c25343d3a67c6dcf3acd4d7abe8cce459b955f0de35\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ca6\", \"baseFeePerGas\": \"0x14c\", \"mixHash\": \"0x9caab2d27b9a3beb8a6dceba85b0f941494c02a1155e84afa4468a80e22e9d34\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "dfe1725d-390f-45c6-ab13-b435d5d39b8e",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-1",
+      "newScenarioState": "block-2",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "matches": "evm_mine|hardhat_mine|anvil_mine"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "72549dbb-9daf-4498-b1fc-2d5b92432420",
+      "priority": 4,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_blockNumber"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x91da95d\"}",
+        "transformers": [
+          "response-template"
+        ]
+      },
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-2"
+    },
+    {
+      "id": "f1c08885-587a-4e54-a9ef-c4aa32c9fca4",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-2",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "latest"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95d\", \"hash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"parentHash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "856a1699-7e59-4009-b3a4-106933950150",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-2",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "pending"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95d\", \"hash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"parentHash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "7fdda63f-1369-4e02-af4e-afcb9b606f51",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-2",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "safe"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95d\", \"hash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"parentHash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "9c0f8899-1690-4830-aa8c-d9e74efb4f8e",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-2",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "finalized"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95d\", \"hash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"parentHash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "f1e70414-7bab-4e2c-b904-8139d20d9cd3",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x91da95d"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95d\", \"hash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"parentHash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "00274f78-4739-48ee-b1f6-e2531e48d1ef",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByHash"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95d\", \"hash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"parentHash\": \"0xe4ec0cf6d1bdfb5d19300076dec3fb873ec52ce6977361653143a0a41c2c62b0\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cb2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x1790652180fbae258a5484265cdb79f0d5df138649ca3b9e601900989bb49660\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "08c92293-0dd8-478b-a569-3c34ecc9e9ee",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-2",
+      "newScenarioState": "block-3",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "matches": "evm_mine|hardhat_mine|anvil_mine"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "de8aa9b8-a2d2-478a-b346-26e78c57e495",
+      "priority": 4,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_blockNumber"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x91da95e\"}",
+        "transformers": [
+          "response-template"
+        ]
+      },
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-3"
+    },
+    {
+      "id": "c729b6be-19c3-47cc-96c9-eefb07be8f96",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-3",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "latest"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95e\", \"hash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"parentHash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cbe\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "e1bb4ad1-5694-4a55-8cc4-0c8154a75181",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-3",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "pending"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95e\", \"hash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"parentHash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cbe\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "a408eacd-3918-4791-b30b-007932b835b4",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-3",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "safe"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95e\", \"hash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"parentHash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cbe\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "8727f0ce-6aec-42a1-8263-b7dd15fcbdbc",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-3",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "finalized"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95e\", \"hash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"parentHash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cbe\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "934e41de-2f86-45d8-a7a7-f6f272dde425",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x91da95e"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95e\", \"hash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"parentHash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cbe\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "96e83442-ce94-4437-8281-72d030202a4d",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByHash"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95e\", \"hash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"parentHash\": \"0x0193c33f5cf492a23a83705968f0d333e881b67e7e68ac23c2601a54513bffa9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cbe\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "7e818502-c0c2-47a2-b4c0-e820c112af6a",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-3",
+      "newScenarioState": "block-4",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "matches": "evm_mine|hardhat_mine|anvil_mine"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "c6e78e52-8949-433b-a26d-38c302fdc00c",
+      "priority": 4,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_blockNumber"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x91da95f\"}",
+        "transformers": [
+          "response-template"
+        ]
+      },
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-4"
+    },
+    {
+      "id": "3c715860-888d-450d-838b-c282ac45650e",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-4",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "latest"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95f\", \"hash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"parentHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cca\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "78efa858-be45-4724-87a0-8df4d2507caf",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-4",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "pending"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95f\", \"hash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"parentHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cca\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "dac1a88f-a716-487e-9478-290a3fdd770f",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-4",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "safe"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95f\", \"hash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"parentHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cca\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "d864ee9a-80b2-465a-a517-c57a983bcc77",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-4",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "finalized"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95f\", \"hash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"parentHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cca\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "6e8e83f2-ce46-4fea-8abe-53ba066f2e4d",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x91da95f"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95f\", \"hash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"parentHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cca\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "993b0d3d-d18e-4e17-89ec-02f630d6bc83",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByHash"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da95f\", \"hash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"parentHash\": \"0xf32bb94d65aff106eca5113a73093c8241592b3d09d2481ce07bef6e2b1f3292\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cca\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5b33fa70-d539-4cff-9beb-c7e127b8c3e6",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-4",
+      "newScenarioState": "block-5",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "matches": "evm_mine|hardhat_mine|anvil_mine"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5f5d2f61-a698-488a-b2e3-dfddb5c59053",
+      "priority": 4,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_blockNumber"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x91da960\"}",
+        "transformers": [
+          "response-template"
+        ]
+      },
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-5"
+    },
+    {
+      "id": "f5e62c33-7fe7-4b80-9d8b-8c01c4a3ea6e",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-5",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "latest"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da960\", \"hash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"parentHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cd6\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "187ea145-6371-4081-ad9d-e07fe866c363",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-5",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "pending"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da960\", \"hash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"parentHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cd6\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "d550329f-8f8f-4a91-a7fc-b2ca29bdcefe",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-5",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "safe"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da960\", \"hash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"parentHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cd6\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "e14fb74d-2fb5-47c4-a439-93b67b28838e",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-5",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "finalized"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da960\", \"hash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"parentHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cd6\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "bb736302-7bf6-47c6-81ad-751a4fd9aade",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x91da960"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da960\", \"hash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"parentHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cd6\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5dc3b302-56a3-42ab-9f75-3d132f3560cd",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByHash"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da960\", \"hash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"parentHash\": \"0x87d1b0c849deae6128cdacbcd9c5f49832867be1a1d688f3846af816c72c96c9\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cd6\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "6dd545fb-cf13-47c7-b1da-ead54fd08aac",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-5",
+      "newScenarioState": "block-6",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "matches": "evm_mine|hardhat_mine|anvil_mine"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5a427110-6981-4014-9cd7-9fd343e1909d",
+      "priority": 4,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_blockNumber"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x91da961\"}",
+        "transformers": [
+          "response-template"
+        ]
+      },
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-6"
+    },
+    {
+      "id": "fe7ef8bb-bfcb-4a44-b831-70499e01afac",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-6",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "latest"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da961\", \"hash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"parentHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ce2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5e0cf93b-da37-4619-baf1-e21f9837cf79",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-6",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "pending"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da961\", \"hash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"parentHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ce2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "1cc5b90b-5f15-46ce-b816-1eda8620c488",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-6",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "safe"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da961\", \"hash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"parentHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ce2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "4ba2aa21-953f-4e7e-83f9-9a3a5c050a6a",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-6",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "finalized"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da961\", \"hash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"parentHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ce2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "e7a8e6ca-7931-4cc2-90f2-a4a246559cb3",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x91da961"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da961\", \"hash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"parentHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ce2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "585f98c7-b392-4608-93af-9d39cf9870c4",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByHash"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da961\", \"hash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"parentHash\": \"0x210c854bc024b8fc08c003d66c46d7616add26c1026a3f49d1f76603b9663dda\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2ce2\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "3a0d325c-2cd6-47b5-ad56-287d4624162e",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-6",
+      "newScenarioState": "block-7",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "matches": "evm_mine|hardhat_mine|anvil_mine"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5df4ecce-e138-424c-976b-48096cc21293",
+      "priority": 4,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_blockNumber"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x91da962\"}",
+        "transformers": [
+          "response-template"
+        ]
+      },
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-7"
+    },
+    {
+      "id": "c5faa3b1-008a-4ca9-87b0-bb5f0d062f83",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-7",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "latest"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da962\", \"hash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"parentHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cee\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5946b353-b411-457a-9a01-08ab257f56aa",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-7",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "pending"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da962\", \"hash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"parentHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cee\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "d2bc60ba-5dbd-4ba8-b61c-543d77493a4f",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-7",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "safe"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da962\", \"hash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"parentHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cee\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "01d1348d-9197-4184-8896-e6d727c13917",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-7",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "finalized"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da962\", \"hash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"parentHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cee\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "f1a044d4-38bb-400c-9c74-ec2eb534f9db",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x91da962"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da962\", \"hash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"parentHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cee\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "a4c5785c-a5b9-46c9-b7b3-f13e87be445f",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByHash"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da962\", \"hash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"parentHash\": \"0x2a64fc9dded1a9594d1659c5c7f86a3bc84cd8fbad166c89d4d0f45c4f0459e6\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cee\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "972b12c0-ebbd-4244-a6af-3e07f3bb37ca",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-7",
+      "newScenarioState": "block-8",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "matches": "evm_mine|hardhat_mine|anvil_mine"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "44da1e3a-99d9-4082-bea0-5d54c397312d",
+      "priority": 4,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_blockNumber"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x91da963\"}",
+        "transformers": [
+          "response-template"
+        ]
+      },
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-8"
+    },
+    {
+      "id": "d8a8ca77-9aa4-4a71-b0e9-b2881e4590e5",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-8",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "latest"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da963\", \"hash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"parentHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cfa\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "12104d54-eea9-4050-929e-624c4a4ce4b9",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-8",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "pending"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da963\", \"hash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"parentHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cfa\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "cc16941a-80b1-4300-a590-80b720a9eb1b",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-8",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "safe"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da963\", \"hash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"parentHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cfa\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "348313f2-2cce-4c34-acdb-5dd60af4a2ba",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-8",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "finalized"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da963\", \"hash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"parentHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cfa\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "e5eeb10e-3069-4b7d-b7d7-d85cce5a1107",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x91da963"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da963\", \"hash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"parentHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cfa\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "a7c2a4c2-a3d8-4070-8edb-e21fe5536a5a",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByHash"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da963\", \"hash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"parentHash\": \"0x3a937da36a66b80846746d84edf154e58bea663bcdfd08b755a0803d3fbfaddb\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2cfa\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "c152781e-aada-4f5c-a269-d7ab6c52570d",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-8",
+      "newScenarioState": "block-9",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "matches": "evm_mine|hardhat_mine|anvil_mine"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "9e1b9a07-1908-4c7e-9d22-1f7202984315",
+      "priority": 4,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_blockNumber"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x91da964\"}",
+        "transformers": [
+          "response-template"
+        ]
+      },
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-9"
+    },
+    {
+      "id": "7fd4594d-ae2e-4d38-bd7f-2d55e14498b6",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-9",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "latest"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da964\", \"hash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"parentHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d06\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "4871e44e-9870-4efe-bbaa-2426dac697a1",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-9",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "pending"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da964\", \"hash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"parentHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d06\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "db636093-be6c-42e5-b969-f4b127d3e829",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-9",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "safe"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da964\", \"hash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"parentHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d06\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "48917ca1-a8b4-4e42-93b3-fe44befe8744",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-9",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "finalized"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da964\", \"hash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"parentHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d06\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "fffb1fb1-5975-464f-914c-1865f13e04ff",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x91da964"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da964\", \"hash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"parentHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d06\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "91b75a05-3f19-4759-aa07-18cff44d2767",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByHash"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da964\", \"hash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"parentHash\": \"0x9fbcaef45f3bcfec56f5142aa8e7c4c06183189c8205d4beefe4b2ecd247978b\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d06\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "49a4e53d-6c37-415b-a332-1c30c32ee8b4",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-9",
+      "newScenarioState": "block-10",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "matches": "evm_mine|hardhat_mine|anvil_mine"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\"}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5f757626-7c48-4dcb-a538-6c3916d78896",
+      "priority": 4,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_blockNumber"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":\"0x91da965\"}",
+        "transformers": [
+          "response-template"
+        ]
+      },
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-10"
+    },
+    {
+      "id": "e3db720e-0b4a-43ca-8929-45144bbce065",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-10",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "latest"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da965\", \"hash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"parentHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d12\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "7c6b5720-54c0-4d6d-8ebd-7e5ef91451c2",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-10",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "pending"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da965\", \"hash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"parentHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d12\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "5cb18d17-0170-4a46-99e4-9303704ad825",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-10",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "safe"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da965\", \"hash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"parentHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d12\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "13b331cc-e130-4cce-9035-674800be7260",
+      "priority": 3,
+      "scenarioName": "block-state-10",
+      "requiredScenarioState": "block-10",
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "finalized"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da965\", \"hash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"parentHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d12\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "44133fa5-442a-4f8a-af74-4ab433774e94",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByNumber"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x91da965"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da965\", \"hash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"parentHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d12\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    },
+    {
+      "id": "28e201ab-bd35-4f2a-b94b-d0a69578349d",
+      "priority": 3,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getBlockByHash"
+            }
+          },
+          {
+            "matchesJsonPath": {
+              "expression": "$.params[0]",
+              "equalTo": "0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":{\"number\": \"0x91da965\", \"hash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"parentHash\": \"0xe28734f8b1f049e115a376451b20d07b71222fb9c4525f71b3e43e768e12f2da\", \"sha3Uncles\": \"0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347\", \"miner\": \"0x0000000000000000000000000000000000000000\", \"stateRoot\": \"0x0000000000000000000000000000000000000000000000000000000000000000\", \"transactionsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"receiptsRoot\": \"0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421\", \"logsBloom\": \"0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\", \"difficulty\": \"0x0\", \"totalDifficulty\": \"0x0\", \"extraData\": \"0x\", \"gasLimit\": \"0x2625a00\", \"gasUsed\": \"0x0\", \"timestamp\": \"0x6a2f2d12\", \"baseFeePerGas\": \"0x123\", \"mixHash\": \"0x87c0b475f422562c7c34c407cf10a6f7e71ae686ca7ee82e93ee65f310c632dc\", \"nonce\": \"0x0000000000000000\", \"transactions\": [], \"uncles\": []}}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    }
+  ]
+}

@@ -508,6 +508,36 @@ warm_compound_reads() {
   done < <(jq -r '.protocols.compound.comets[]?' <<<"$chain_config")
 }
 
+warm_sky_reads() {
+  local rpc_url="$1"
+  local chain_id="$2"
+  local chain_name="$3"
+  local chain_config="$4"
+  local susds usds lite_psm
+
+  susds="$(jq -r '.protocols.sky.susds // empty' <<<"$chain_config")"
+  [[ -z "$susds" ]] && return 0
+
+  usds="$(jq -r '.protocols.sky.usds // empty' <<<"$chain_config")"
+  lite_psm="$(jq -r '.protocols.sky.lite_psm // empty' <<<"$chain_config")"
+
+  warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$susds" || return 0
+  [[ -n "$usds" ]]     && warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$usds"     || true
+  [[ -n "$lite_psm" ]] && warm_contract_code "$rpc_url" "$chain_id" "$chain_name" "$lite_psm" || true
+
+  # Warm key reads: SSR rate and totalAssets
+  best_effort_call "$rpc_url" "$susds" 'ssr()(uint256)'
+  best_effort_call "$rpc_url" "$susds" 'totalAssets()(uint256)'
+  best_effort_call "$rpc_url" "$susds" 'convertToAssets(uint256)(uint256)' 1000000000000000000
+
+  # LitePSM: buf (available liquidity pocket)
+  if [[ -n "$lite_psm" && "$lite_psm" != "null" ]]; then
+    best_effort_call "$rpc_url" "$lite_psm" 'buf()(uint256)'
+    best_effort_call "$rpc_url" "$lite_psm" 'tin()(uint256)'
+    best_effort_call "$rpc_url" "$lite_psm" 'tout()(uint256)'
+  fi
+}
+
 warm_morpho_reads() {
   local rpc_url="$1"
   local chain_id="$2"
@@ -883,6 +913,7 @@ warm_protocol_reads() {
   warm_aave_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_uniswap_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_compound_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
+  warm_sky_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_morpho_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_pendle_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"
   warm_lido_reads "$rpc_url" "$chain_id" "$chain_name" "$chain_config"

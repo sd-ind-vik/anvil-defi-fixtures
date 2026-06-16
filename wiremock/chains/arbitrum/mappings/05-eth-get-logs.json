@@ -1,0 +1,29 @@
+{
+  "mappings": [
+    {
+      "id": "c5ee7677-960c-48a1-b910-ace1a1cfb237",
+      "priority": 10,
+      "request": {
+        "method": "POST",
+        "bodyPatterns": [
+          {
+            "matchesJsonPath": {
+              "expression": "$.method",
+              "equalTo": "eth_getLogs"
+            }
+          }
+        ]
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "{\"jsonrpc\":\"2.0\",\"id\":{{jsonPath request.body '$.id'}},\"result\":[]}",
+        "transformers": [
+          "response-template"
+        ]
+      }
+    }
+  ]
+}
