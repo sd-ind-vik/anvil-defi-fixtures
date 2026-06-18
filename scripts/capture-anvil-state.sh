@@ -332,6 +332,14 @@ warm_aave_reads() {
     fi
   done < <(jq -r '.protocols.aave.key_reserves[]?' <<<"$chain_config")
 
+  # getReservesList() always reads _reservesCount (slot 59) and every _reservesList[i]
+  # entry from storage.  getUserAccountData() for a fresh account (no positions) hits
+  # userConfig.isEmpty() and returns early — never fetching those slots.  Without this
+  # call the fixture has _reservesCount=0 and getUserAccountData returns $0 collateral
+  # for any account that does have positions in the offline Anvil.
+  required_call "$rpc_url" "${chain_name} Aave getReservesList" "$pool" \
+    'getReservesList()(address[])'
+
   IFS=',' read -ra accounts <<<"$AAVE_WARM_ACCOUNTS"
   for account in "${accounts[@]}"; do
     [[ -z "$account" ]] && continue

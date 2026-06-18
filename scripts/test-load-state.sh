@@ -234,6 +234,26 @@ for entry in "${CHAINS[@]}"; do
     fail "$name: Aave Pool has no bytecode at $pool"
   fi
 
+  # getReservesList() reads _reservesCount (slot 59) and _reservesList[i] from
+  # the pool's storage — slots only fetched during capture if getReservesList()
+  # itself was called (getUserAccountData short-circuits for zero-position accounts).
+  # An empty list means the fixture is missing those slots and getUserAccountData
+  # will return $0 collateral for any account that does have positions.
+  reserves_list="$(cast_call "$rpc" "$pool" 'getReservesList()(address[])')"
+  reserves_list_count="$(python3 -c "
+s = '''$reserves_list'''.strip()
+if not s or s in ('[]', ''):
+    print(0)
+else:
+    import re
+    print(len(re.findall(r'0x[0-9a-fA-F]{40}', s)))
+" 2>/dev/null || echo 0)"
+  if [[ "$reserves_list_count" -gt 0 ]]; then
+    ok "$name: Pool.getReservesList() returned $reserves_list_count reserves"
+  else
+    fail "$name: Pool.getReservesList() returned empty — _reservesCount/_reservesList not captured in fixture"
+  fi
+
   first_atoken=""
   for asset in "${reserves[@]}"; do
     rd="$(cast_call "$rpc" "$pool" \
