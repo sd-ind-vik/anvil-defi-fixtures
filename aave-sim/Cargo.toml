@@ -3,6 +3,10 @@ name    = "anvil-simulator"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+name = "aave_sim"
+path = "src/lib.rs"
+
 [[bin]]
 name = "anvil-simulator"
 path = "src/main.rs"
